@@ -8,14 +8,44 @@ from flaskr.db import get_db
 
 bp = Blueprint('blog', __name__)
 
+@bp.route('/')
+def index():
+    return render_template('blog/top.html')
+
 @bp.route('/<user_name>/profile', methods=('GET', 'POST'))
 def profile(user_name):
-    # menu_id = request.args.get("menu_id")
-    # if menu_id is not None:
     user = user_get(user_name)
     bmi = bmi_get(user)
-    
-    return render_template('blog/profile.html', user_name=user_name, bmi=bmi, menu_id=menu_id)
+    menu_id = request.args.get("menu_id")
+    if menu_id is None:
+        user = user_get(user_name)
+        bmi = bmi_get(user)
+        return render_template('blog/profile.html', user_name=user_name, bmi=bmi)
+    else:
+        db = get_db()
+        menu = db.execute(
+            'SELECT *'
+            ' FROM menu'
+            ' WHERE id = ?',
+            (menu_id,)
+        ).fetchone()
+
+        menuname = menu["menuname"]
+        img = menu["img"]
+        eattime = menu["eattime"]
+        type_bmi = menu["type"]
+        calorie = menu["calorie"]
+        details = menu["details"]
+        
+        db.execute(
+            'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, details)'
+            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, details)
+        )
+        db.commit()
+        return render_template('blog/profile.html', user_name=user_name, bmi=bmi)
+
+
 
 @bp.route('/<user_name>/menu/<int:bmi>', methods=('GET', 'POST'))
 def menu(user_name, bmi):
@@ -44,36 +74,6 @@ def detail(user_name):
     ).fetchone()
     return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu)
 
-@bp.route('/<user_name>/profile', methods=('GET', 'POST'))
-def ordered(user_name, menu_id):
-    user = user_get(user_name)
-    menu_id = request.args.get("menu_id")
-    # username = user["username"]
-    bmi = bmi_get(user)
-
-    db = get_db()
-    menu = db.execute(
-        'SELECT *'
-        ' FROM menu'
-        ' WHERE id = ?',
-        (menu_id,)
-    ).fetchone()
-
-    menuname = menu["menuname"]
-    img = menu["img"]
-    eattime = menu["eattime"]
-    type_bmi = menu["type"]
-    calorie = menu["calorie"]
-    details = menu["details"]
-    
-    db.execute(
-        'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, details)'
-        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, details)
-    )
-    db.commit()
-    
-    return render_template('blog/profile.html', user_name=user_name, menu_id=menu_id, bmi=bmi)
 
 @bp.route('/<user_name>/log', methods=('GET', 'POST'))
 def log(user_name):
@@ -88,9 +88,6 @@ def log(user_name):
     
     return render_template('blog/log.html', logs=logs)
 
-@bp.route('/')
-def index():
-    return render_template('blog/top.html')
 
 def user_get(user_name):
     db = get_db()
