@@ -1,15 +1,23 @@
-{% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %}
-
+{% extends "layout.html" %}
 {% block content %}
+
   <form method="post">
-    <label for="username">Username</label>
+    <label for="username">名前</label>
     <input name="username" id="username" required>
-    <label for="password">Password</label>
+    <label for="password">パスワード</label>
     <input type="password" name="password" id="password" required>
+    <label for="address">住所</label>
+    <input name="address" id="address" required>
+    <label for="weight">体重</label>
+    <input name="weight" id="weight" required>
+    <label for="height">身長</label>
+    <input name="height" id="height" required>
+    <input type="radio" name="gender" value="male">男性
+    <input type="radio" name="gender" value="female">女性
+    <input type="radio" name="course" value="health">標準健康コース
+    <input type="radio" name="course" value="diet">ダイエットコース
+    <input type="radio" name="course" value="muscle">筋肉コース
     <input type="submit" value="Register">
   </form>
+
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>order.html</h1>
+<h1>明日の{{eat_time}}を決めてください</h1>
+<div>
+    <p><a href="{{ url_for("blog.detail", id=id) }}">納豆定食</a></p>
+    <p><a href="{{ url_for("blog.detail", id=2) }}">魚定食</a></p>
+</div>
+
+{% for menu in menus %}
+    <ul>
+        <li>id:{{menu["id"]}}</li>
+        <li>料理名:{{menu["menuname"]}}</li>
+        <li>img:{{menu["img"]}}</li>
+        <li>朝昼晩:{{menu["eattime"]}}</li>
+        <li>タイプ:{{menu["type"]}}</li>
+        <li>カロリー:{{menu["calorie"]}}</li>
+        <li>説明文:{{menu["details"]}}</li>
+    </ul>
+{% endfor %}
+
+{% endblock %}

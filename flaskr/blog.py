@@ -8,6 +8,90 @@ from flaskr.db import get_db
 
 bp = Blueprint('blog', __name__)
 
+@bp.route('/profile')
+def profile():
+    username = g.user["username"]
+    weight = g.user["weight"]
+    height = g.user["height"] / 100
+    bmi = round(weight/height/height)
+    
+    return render_template('blog/profile.html', username=username, bmi=bmi)
+
+@bp.route('/menu', methods=('GET', 'POST'))
+def menu():
+    bmi = request.args.get("bmi")
+    eat_time = request.args.get("eat_time")
+    
+    db = get_db()
+    menus = db.execute(
+        'SELECT *'
+        ' FROM menu'
+        ' WHERE eattime = ?',
+        (eat_time,)
+    ).fetchall()
+
+    id = 1
+    return render_template('blog/order.html', eat_time=eat_time, id=id, menus=menus)
+
+
+@bp.route('/morning')
+def morning():
+    db = get_db()
+    menus = db.execute(
+        'SELECT *'
+        ' FROM menu'
+    ).fetchall()
+
+    eat_time = "朝"
+    username = g.user["username"]
+    weight = 60
+    height = 170 / 100
+    bmi = weight/height/height
+    id = 1
+    return render_template('blog/order.html', eat_time=eat_time, id=id, menus=menus)
+
+@bp.route('/lunch')
+def lunch():
+    eat_time = "昼"
+    username = g.user["username"]
+    weight = 60
+    height = 170 / 100
+    bmi = weight / height / height
+    id = 1
+    
+    return render_template('blog/order.html', eat_time=eat_time, id=id)
+
+@bp.route('/dinner')
+def dinner():
+    eat_time = "晩"
+    username = g.user["username"]
+    weight = 60
+    height = 170 / 100
+    bmi = weight / height / height
+    id = 1
+    
+    return render_template('blog/order.html', eat_time=eat_time, id=id)
+
+@bp.route('/detail', methods=('GET', 'POST'))
+def detail():
+    # id = request.args.get("id")
+    id = request.args.get("id")
+    return render_template('blog/detail.html', id=id)
+
+@bp.route('/profile/<int:id>', methods=('GET', 'POST'))
+def ordered(id):
+    # orderテーブルに挿入する
+    username = g.user["username"]
+    weight = 60
+    height = 170 / 100
+    bmi = weight/height/height
+    print("log")
+    return render_template('blog/profile.html', id=id, username=username, bmi=bmi)
+
+@bp.route('/log', methods=('GET', 'POST'))
+def log():
+    return render_template('blog/log.html')
+
 @bp.route('/')
 def index():
     # print("test{}".format(g.user['id']))
@@ -34,7 +118,7 @@ def index():
     #     ' ORDER BY created DESC',
     #     (g.user['id'],)
     # ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+    return render_template('blog/top.html', posts=posts)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

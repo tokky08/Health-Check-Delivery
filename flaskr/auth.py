@@ -14,6 +14,12 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        address = request.form['address']
+        weight = request.form['weight']
+        height = request.form['height']
+        gender = request.form['gender']
+        course = request.form['course']
+
         db = get_db()
         error = None
 
@@ -28,8 +34,9 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
+                'INSERT INTO user (username, password, address, weight, height, gender, course) '
+                'VALUES (?, ?, ?, ?, ?, ?, ?)',
+                (username, generate_password_hash(password), address, weight, height, gender, course)
             )
             db.commit()
             return redirect(url_for('auth.login'))
@@ -58,7 +65,9 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            # return redirect(url_for('index'))
+            return redirect(url_for('blog.profile'))
+            # return render_template('blog/profile.html')
 
         flash(error)
 
