@@ -8,117 +8,110 @@ from flaskr.db import get_db
 
 bp = Blueprint('blog', __name__)
 
-@bp.route('/profile')
-def profile():
-    username = g.user["username"]
-    weight = g.user["weight"]
-    height = g.user["height"] / 100
-    bmi = round(weight/height/height)
+@bp.route('/profile/<int:user_id>')
+def profile(user_id):
+    user = user_get(user_id)
+    username = user["username"]
+    bmi = bmi_get(user)
     
-    return render_template('blog/profile.html', username=username, bmi=bmi)
+    return render_template('blog/profile.html', username=username, bmi=bmi, user_id=user_id)
 
-@bp.route('/menu', methods=('GET', 'POST'))
-def menu():
-    bmi = request.args.get("bmi")
+@bp.route('/menu/<int:user_id>/<int:bmi>', methods=('GET', 'POST'))
+def menu(user_id, bmi):
+    type_bmi = "low" if bmi < 25 else "high"
     eat_time = request.args.get("eat_time")
-    
+
     db = get_db()
     menus = db.execute(
         'SELECT *'
         ' FROM menu'
-        ' WHERE eattime = ?',
-        (eat_time,)
+        ' WHERE eattime = ? and type = ?',
+        (eat_time, type_bmi,)
     ).fetchall()
 
-    id = 1
-    return render_template('blog/order.html', eat_time=eat_time, id=id, menus=menus)
+    return render_template('blog/order.html', eat_time=eat_time, menus=menus, user_id=user_id)
 
-
-@bp.route('/morning')
-def morning():
+@bp.route('/detail/<int:user_id>', methods=('GET', 'POST'))
+def detail(user_id):
+    menu_id = request.args.get("menu_id")
     db = get_db()
-    menus = db.execute(
+    menu = db.execute(
         'SELECT *'
         ' FROM menu'
+        ' WHERE id = ?',
+        (menu_id,)
+    ).fetchone()
+    return render_template('blog/detail.html', user_id=user_id, menu_id=menu_id, menu=menu)
+
+@bp.route('/profile/<int:user_id>/<int:menu_id>', methods=('GET', 'POST'))
+def ordered(user_id, menu_id):
+    user = user_get(user_id)
+    username = user["username"]
+    bmi = bmi_get(user)
+
+    db = get_db()
+    menu = db.execute(
+        'SELECT *'
+        ' FROM menu'
+        ' WHERE id = ?',
+        (menu_id,)
+    ).fetchone()
+
+    menuname = menu["menuname"]
+    img = menu["img"]
+    eattime = menu["eattime"]
+    type_bmi = menu["type"]
+    calorie = menu["calorie"]
+    details = menu["details"]
+    
+    db.execute(
+        'INSERT INTO ordered (menuid, userid, menuname, img, eattime, type, calorie, details)'
+        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        (menu_id, user_id, menuname, img, eattime, type_bmi, calorie, details)
+    )
+    db.commit()
+    
+    return render_template('blog/profile.html', user_id=user_id, menu_id=menu_id, username=username, bmi=bmi)
+
+@bp.route('/log/<int:user_id>', methods=('GET', 'POST'))
+def log(user_id):
+    db = get_db()
+    logs = db.execute(
+        'SELECT *'
+        ' FROM ordered o JOIN user u ON o.userid = u.id'
+        ' WHERE o.userid = ?'
+        ' ORDER BY created DESC',
+        (user_id,)
     ).fetchall()
-
-    eat_time = "朝"
-    username = g.user["username"]
-    weight = 60
-    height = 170 / 100
-    bmi = weight/height/height
-    id = 1
-    return render_template('blog/order.html', eat_time=eat_time, id=id, menus=menus)
-
-@bp.route('/lunch')
-def lunch():
-    eat_time = "昼"
-    username = g.user["username"]
-    weight = 60
-    height = 170 / 100
-    bmi = weight / height / height
-    id = 1
     
-    return render_template('blog/order.html', eat_time=eat_time, id=id)
-
-@bp.route('/dinner')
-def dinner():
-    eat_time = "晩"
-    username = g.user["username"]
-    weight = 60
-    height = 170 / 100
-    bmi = weight / height / height
-    id = 1
-    
-    return render_template('blog/order.html', eat_time=eat_time, id=id)
-
-@bp.route('/detail', methods=('GET', 'POST'))
-def detail():
-    # id = request.args.get("id")
-    id = request.args.get("id")
-    return render_template('blog/detail.html', id=id)
-
-@bp.route('/profile/<int:id>', methods=('GET', 'POST'))
-def ordered(id):
-    # orderテーブルに挿入する
-    username = g.user["username"]
-    weight = 60
-    height = 170 / 100
-    bmi = weight/height/height
-    print("log")
-    return render_template('blog/profile.html', id=id, username=username, bmi=bmi)
-
-@bp.route('/log', methods=('GET', 'POST'))
-def log():
-    return render_template('blog/log.html')
+    return render_template('blog/log.html', logs=logs)
 
 @bp.route('/')
 def index():
-    # print("test{}".format(g.user['id']))
+    return render_template('blog/top.html')
+
+def user_get(user_id):
     db = get_db()
-    try:
-        posts = db.execute(
-            'SELECT p.id, title, body, created, author_id, username'
-            ' FROM post p JOIN user u ON p.author_id = u.id'
-            ' WHERE p.author_id = ?'
-            ' ORDER BY created DESC',
-            (g.user['id'],)
-        ).fetchall()
-    except:
-        posts = db.execute(
-            'SELECT p.id, title, body, created, author_id, username'
-            ' FROM post p JOIN user u ON p.author_id = u.id'
-            ' ORDER BY created DESC'
-        ).fetchall()
-    # db = get_db()
-    # posts = db.execute(
-    #     'SELECT p.id, title, body, created, author_id, username'
-    #     ' FROM post p JOIN user u ON p.author_id = u.id'
-    #     ' WHERE p.author_id = ?'
-    #     ' ORDER BY created DESC',
-    #     (g.user['id'],)
-    # ).fetchall()
-    return render_template('blog/top.html', posts=posts)
+    user = db.execute(
+        'SELECT *'
+        ' FROM user'
+        ' WHERE id = ?',
+        (user_id,)
+    ).fetchone()
+
+    return user
+
+def bmi_get(user):
+    weight = user["weight"]
+    height = user["height"] / 100
+    bmi = round(weight / height / height)
+    
+    return bmi
+
+
+
+
+
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

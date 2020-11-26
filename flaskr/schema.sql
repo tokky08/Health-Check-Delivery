@@ -18,6 +18,7 @@ CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   author_id INTEGER NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  -- created DATE DEFAULT (datetime('now')),
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
@@ -26,23 +27,25 @@ CREATE TABLE post (
 CREATE TABLE menu (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   menuname TEXT UNIQUE NOT NULL,
-  img TEXT,
-  eattime TEXT,
-  type TEXT,
-  calorie INTEGER,
-  details TEXT
+  img TEXT NOT NULL,
+  eattime TEXT NOT NULL,
+  type TEXT NOT NULL,
+  calorie INTEGER NOT NULL,
+  details TEXT NOT NULL
 );
 
 CREATE TABLE ordered (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  menuid INTEGER NOT NULL,
   userid INTEGER NOT NULL,
-  menuname TEXT UNIQUE NOT NULL,
-  img TEXT,
-  eattime TEXT,
-  type TEXT,
-  calorie INTEGER,
-  details TEXT,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  menuname TEXT NOT NULL,
+  img TEXT NOT NULL,
+  eattime TEXT NOT NULL,
+  type TEXT NOT NULL,
+  calorie INTEGER NOT NULL,
+  details TEXT NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (userid) REFERENCES user (id)
 );
 
 

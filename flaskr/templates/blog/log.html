@@ -1,6 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>log.html</h1>
+<h1>注文履歴画面</h1>
+
+{% for log in logs %}
+    <ul>
+        <li>id:{{log["id"]}}</li>
+        <li>ユーザID:{{log["userid"]}}</li>
+        <li>メニューID:{{log["menuid"]}}</li>
+        <li>料理名:{{log["menuname"]}}</li>
+        <li>img:{{log["img"]}}</li>
+        <li>朝昼晩:{{log["eattime"]}}</li>
+        <li>タイプ:{{log["type"]}}</li>
+        <li>カロリー:{{log["calorie"]}}</li>
+        <li>説明文:{{log["details"]}}</li>
+        <li>注文日時:{{log["created"]}}</li>
+    </ul> 
+{% endfor %}
 
 {% endblock %}
