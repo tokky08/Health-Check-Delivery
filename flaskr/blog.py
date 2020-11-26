@@ -8,16 +8,17 @@ from flaskr.db import get_db
 
 bp = Blueprint('blog', __name__)
 
-@bp.route('/profile/<int:user_id>')
-def profile(user_id):
-    user = user_get(user_id)
-    username = user["username"]
+@bp.route('/<user_name>/profile', methods=('GET', 'POST'))
+def profile(user_name):
+    # menu_id = request.args.get("menu_id")
+    # if menu_id is not None:
+    user = user_get(user_name)
     bmi = bmi_get(user)
     
-    return render_template('blog/profile.html', username=username, bmi=bmi, user_id=user_id)
+    return render_template('blog/profile.html', user_name=user_name, bmi=bmi, menu_id=menu_id)
 
-@bp.route('/menu/<int:user_id>/<int:bmi>', methods=('GET', 'POST'))
-def menu(user_id, bmi):
+@bp.route('/<user_name>/menu/<int:bmi>', methods=('GET', 'POST'))
+def menu(user_name, bmi):
     type_bmi = "low" if bmi < 25 else "high"
     eat_time = request.args.get("eat_time")
 
@@ -29,10 +30,10 @@ def menu(user_id, bmi):
         (eat_time, type_bmi,)
     ).fetchall()
 
-    return render_template('blog/order.html', eat_time=eat_time, menus=menus, user_id=user_id)
+    return render_template('blog/order.html', eat_time=eat_time, menus=menus, user_name=user_name)
 
-@bp.route('/detail/<int:user_id>', methods=('GET', 'POST'))
-def detail(user_id):
+@bp.route('/<user_name>/detail', methods=('GET', 'POST'))
+def detail(user_name):
     menu_id = request.args.get("menu_id")
     db = get_db()
     menu = db.execute(
@@ -41,12 +42,13 @@ def detail(user_id):
         ' WHERE id = ?',
         (menu_id,)
     ).fetchone()
-    return render_template('blog/detail.html', user_id=user_id, menu_id=menu_id, menu=menu)
+    return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu)
 
-@bp.route('/profile/<int:user_id>/<int:menu_id>', methods=('GET', 'POST'))
-def ordered(user_id, menu_id):
-    user = user_get(user_id)
-    username = user["username"]
+@bp.route('/<user_name>/profile', methods=('GET', 'POST'))
+def ordered(user_name, menu_id):
+    user = user_get(user_name)
+    menu_id = request.args.get("menu_id")
+    # username = user["username"]
     bmi = bmi_get(user)
 
     db = get_db()
@@ -65,23 +67,23 @@ def ordered(user_id, menu_id):
     details = menu["details"]
     
     db.execute(
-        'INSERT INTO ordered (menuid, userid, menuname, img, eattime, type, calorie, details)'
+        'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, details)'
         ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        (menu_id, user_id, menuname, img, eattime, type_bmi, calorie, details)
+        (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, details)
     )
     db.commit()
     
-    return render_template('blog/profile.html', user_id=user_id, menu_id=menu_id, username=username, bmi=bmi)
+    return render_template('blog/profile.html', user_name=user_name, menu_id=menu_id, bmi=bmi)
 
-@bp.route('/log/<int:user_id>', methods=('GET', 'POST'))
-def log(user_id):
+@bp.route('/<user_name>/log', methods=('GET', 'POST'))
+def log(user_name):
     db = get_db()
     logs = db.execute(
         'SELECT *'
-        ' FROM ordered o JOIN user u ON o.userid = u.id'
-        ' WHERE o.userid = ?'
+        ' FROM ordered o JOIN user u ON o.username = u.username'
+        ' WHERE o.username = ?'
         ' ORDER BY created DESC',
-        (user_id,)
+        (user_name,)
     ).fetchall()
     
     return render_template('blog/log.html', logs=logs)
@@ -90,13 +92,13 @@ def log(user_id):
 def index():
     return render_template('blog/top.html')
 
-def user_get(user_id):
+def user_get(user_name):
     db = get_db()
     user = db.execute(
         'SELECT *'
         ' FROM user'
-        ' WHERE id = ?',
-        (user_id,)
+        ' WHERE username = ?',
+        (user_name,)
     ).fetchone()
 
     return user

@@ -2,13 +2,13 @@
 {% block content %}
 
 <h1>プロフィールページ</h1>
-<a href={{url_for('blog.log', user_id=user_id)}}>食事履歴</a>
-<h1>{{ username }}</h1>
-<h1>{{ bmi }}</h1>
+<a href={{url_for('blog.log', user_name=user_name)}}>食事履歴</a>
+<h1>ユーザ名：{{ user_name }}</h1>
+<h1>BMI：{{ bmi }}</h1>
 
-<a href={{url_for('blog.menu', user_id=user_id, bmi=bmi, eat_time="morning")}}>明日の朝食を決める</a>
-<a href={{url_for('blog.menu', user_id=user_id, bmi=bmi, eat_time="lunch")}}>明日の昼食を決める</a>
-<a href={{url_for('blog.menu', user_id=user_id, bmi=bmi, eat_time="dinner")}}>明日の夜食を決める</a>
+<a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="morning")}}>明日の朝食を決める</a>
+<a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="lunch")}}>明日の昼食を決める</a>
+<a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="dinner")}}>明日の夜食を決める</a>
 
 <h2>ID:{{menu_id}}</h2>
 

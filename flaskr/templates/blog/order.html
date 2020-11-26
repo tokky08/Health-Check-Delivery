@@ -5,7 +5,7 @@
 <h2>明日の{{eat_time}}を決めてください</h2>
 
 {% for menu in menus %}
-    <a href="{{ url_for("blog.detail", user_id=user_id, menu_id=menu["id"]) }}">
+    <a href="{{ url_for("blog.detail", user_name=user_name, menu_id=menu["id"]) }}">
         <ul>
             <li>id:{{menu["id"]}}</li>
             <li>料理名:{{menu["menuname"]}}</li>

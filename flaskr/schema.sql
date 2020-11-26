@@ -37,7 +37,7 @@ CREATE TABLE menu (
 CREATE TABLE ordered (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   menuid INTEGER NOT NULL,
-  userid INTEGER NOT NULL,
+  username TEXT NOT NULL,
   menuname TEXT NOT NULL,
   img TEXT NOT NULL,
   eattime TEXT NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE ordered (
   calorie INTEGER NOT NULL,
   details TEXT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (userid) REFERENCES user (id)
+  FOREIGN KEY (username) REFERENCES user (username)
 );
 
 
