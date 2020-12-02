@@ -10,9 +10,16 @@ CREATE TABLE user (
   address TEXT NOT NULL,
   tel INTEGER NOT NULL,
   mail TEXT,
-  height INTEGER,
   weight INTEGER,
+  height INTEGER,
   gender TEXT,
+  egg INTEGER, 
+  milk INTEGER, 
+  wheat INTEGER, 
+  shrimp INTEGER, 
+  crab INTEGER, 
+  peanuts INTEGER, 
+  soba INTEGER
 );
 
 CREATE TABLE post (

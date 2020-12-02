@@ -46,41 +46,104 @@ def register():
             # )
             # db.commit()
             # return redirect(url_for('auth.login'))
-            return redirect(url_for('auth.register_profile', username=username))
+            return redirect(
+                url_for('auth.profile',
+                    username = username,
+                    password = password,
+                    address = address,
+                    tel = tel,
+                    mail = mail
+                )
+            )
 
         flash(error)
 
     return render_template('auth/register.html')
 
-@bp.route('/register_profile', methods=('GET', 'POST'))
-def register_profile():
+@bp.route('/profile', methods=('GET', 'POST'))
+def profile():
     if request.method == 'POST':
+        username = request.args.get("username")
+        password = request.args.get("password")
+        address = request.args.get("address")
+        tel = request.args.get("tel")
+        mail = request.args.get("mail")
         weight = request.form['weight']
         height = request.form['height']
         gender = request.form['gender']
-        return redirect(url_for('auth.register_allergies', gender=gender))
-    username = request.args.get("username")
-    print(username)
+        return redirect(
+            url_for('auth.allergies',
+                username = username,
+                password = password,
+                address = address,
+                tel = tel,
+                mail = mail,
+                weight = weight,
+                height = height,
+                gender = gender
+            )
+        )
     # return redirect(url_for('auth.login'))
     return render_template('auth/profile.html')
 
-@bp.route('/register_allergies', methods=('GET', 'POST'))
-def register_allergies():
+@bp.route('/allergies', methods=('GET', 'POST'))
+def allergies():
     if request.method == 'POST':
-        egg = request.form.getlist('allergies')
-        # milk = request.form['milk']
-        # wheat = request.form['wheat']
-        # shrimp = request.form['shrimp']
-        # crab = request.form['crab']
-        # peanuts = request.form['peanuts']
-        # soba = request.form['soba']
-        print("egg: {}".format(egg))
-        # print("milk: {}".format(milk))
-        # print("wheat: {}".format(wheat))
-        # print("shrimp: {}".format(shrimp))
-        # print("crab: {}".format(crab))
-        # print("peanuts: {}".format(peanuts))
-        # print("soba: {}".format(soba))
+        username = request.args.get("username")
+        password = request.args.get("password")
+        address = request.args.get("address")
+        tel = request.args.get("tel")
+        mail = request.args.get("mail")
+        weight = request.args.get('weight')
+        height = request.args.get('height')
+        gender = request.args.get('gender')
+        allergies = request.form.getlist('allergies')
+        # allergies_list = ["egg", "milk", "wheat", "shrimp", "crab", "peanuts", "soba"]
+        # for item_outer in allergies:
+        #     for item_inner in allergies_list:
+        #         if item_outer == item_inner:
+
+        egg = 0
+        milk = 0
+        wheat = 0
+        shrimp = 0
+        crab = 0
+        peanuts = 0
+        soba = 0
+        for item in allergies:
+            if item == "egg":
+                egg = 1
+            elif item == "milk":
+                milk = 1
+            elif item == "wheat":
+                wheat = 1
+            elif item == "shrimp":
+                shrimp = 1
+            elif item == "crab":
+                crab = 1
+            elif item == "peanuts":
+                peanuts = 1
+            elif item == "soba":
+                soba = 1
+        print("username: {}".format(username))
+        print("password: {}".format(password))
+        print("address: {}".format(address))
+        print("tel: {}".format(tel))
+        print("mail: {}".format(mail))
+        print("weight: {}".format(weight))
+        print("height: {}".format(height))
+        print("gender: {}".format(gender))
+        print("allergies: {}".format(allergies))
+
+        db = get_db()
+        db.execute(
+            'INSERT INTO user (username, password, address, tel, weight, height, gender, egg, milk, wheat, shrimp, crab, peanuts, soba) '
+            'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            (username, generate_password_hash(password), address, tel, weight, height, gender, egg, milk, wheat, shrimp, crab, peanuts, soba)
+        )
+        db.commit()
+        return redirect(url_for('auth.login'))
+        
     return render_template('auth/allergies.html')
 
 
