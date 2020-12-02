@@ -1,20 +1,17 @@
-{% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Edit "{{ post['title'] }}"{% endblock %}</h1>
-{% endblock %}
-
+{% extends "layout.html" %}
 {% block content %}
+
   <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title"
-      value="{{ request.form['title'] or post['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    <label for="address">住所</label>
+    <input name="address" id="address" value="{{ request.form['address'] or user['address'] }}" required>
+    <label for="weight">体重</label>
+    <input name="weight" id="weight" value="{{ request.form['weight'] or user['weight'] }}" required>
+    <label for="height">身長</label>
+    <input name="height" id="height" value="{{ request.form['height'] or user['height'] }}" required>
+    <input type="radio" name="course" value="health">標準健康コース
+    <input type="radio" name="course" value="diet">ダイエットコース
+    <input type="radio" name="course" value="muscle">筋肉コース
     <input type="submit" value="Save">
   </form>
-  <hr>
-  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-  </form>
+
 {% endblock %}

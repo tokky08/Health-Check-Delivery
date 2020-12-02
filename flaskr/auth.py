@@ -9,6 +9,10 @@ from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+@bp.route('/description', methods=('GET', 'POST'))
+def description():
+    return render_template('auth/description.html')
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
@@ -64,12 +68,9 @@ def login():
 
         if error is None:
             session.clear()
-            # session['user_id'] = user['id']
             session['user_name'] = user['username']
-            # return redirect(url_for('index'))
             return redirect(url_for('blog.profile', user_name=session['user_name']))
-            # return render_template('blog/profile.html')
-
+        
         flash(error)
 
     return render_template('auth/login.html')

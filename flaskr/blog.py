@@ -88,6 +88,35 @@ def log(user_name):
     
     return render_template('blog/log.html', logs=logs)
 
+@bp.route('/<user_name>/update', methods=('GET', 'POST'))
+# @login_required
+def update_1(user_name):
+    user = user_get(user_name)
+
+    if request.method == 'POST':
+        address = request.form['address']
+        weight = request.form['weight']
+        height = request.form['height']
+        course = request.form['course']
+        error = None
+
+        # if not title:
+        #     error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE user SET address = ?, weight = ?, height = ?, course = ?'
+                ' WHERE username = ?',
+                (address, weight, height, course, user_name)
+            )
+            db.commit()
+            return redirect(url_for('blog.profile', user_name=user_name))
+
+    return render_template('blog/update.html', user=user)
+
 
 def user_get(user_name):
     db = get_db()
