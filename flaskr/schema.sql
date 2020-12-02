@@ -7,11 +7,12 @@ CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  address TEXT,
-  weight INTEGER,
+  address TEXT NOT NULL,
+  tel INTEGER NOT NULL,
+  mail TEXT,
   height INTEGER,
+  weight INTEGER,
   gender TEXT,
-  course TEXT
 );
 
 CREATE TABLE post (

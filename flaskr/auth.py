@@ -19,10 +19,12 @@ def register():
         username = request.form['username']
         password = request.form['password']
         address = request.form['address']
-        weight = request.form['weight']
-        height = request.form['height']
-        gender = request.form['gender']
-        course = request.form['course']
+        tel = request.form['tel']
+        mail = request.form['mail']
+        # weight = request.form['weight']
+        # height = request.form['height']
+        # gender = request.form['gender']
+        # course = request.form['course']
 
         db = get_db()
         error = None
@@ -37,17 +39,50 @@ def register():
             error = 'User {} is already registered.'.format(username)
 
         if error is None:
-            db.execute(
-                'INSERT INTO user (username, password, address, weight, height, gender, course) '
-                'VALUES (?, ?, ?, ?, ?, ?, ?)',
-                (username, generate_password_hash(password), address, weight, height, gender, course)
-            )
-            db.commit()
-            return redirect(url_for('auth.login'))
+            # db.execute(
+            #     'INSERT INTO user (username, password, address, weight, height, gender, course) '
+            #     'VALUES (?, ?, ?, ?, ?, ?, ?)',
+            #     (username, generate_password_hash(password), address, weight, height, gender, course)
+            # )
+            # db.commit()
+            # return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.register_profile', username=username))
 
         flash(error)
 
     return render_template('auth/register.html')
+
+@bp.route('/register_profile', methods=('GET', 'POST'))
+def register_profile():
+    if request.method == 'POST':
+        weight = request.form['weight']
+        height = request.form['height']
+        gender = request.form['gender']
+        return redirect(url_for('auth.register_allergies', gender=gender))
+    username = request.args.get("username")
+    print(username)
+    # return redirect(url_for('auth.login'))
+    return render_template('auth/profile.html')
+
+@bp.route('/register_allergies', methods=('GET', 'POST'))
+def register_allergies():
+    if request.method == 'POST':
+        egg = request.form.getlist('allergies')
+        # milk = request.form['milk']
+        # wheat = request.form['wheat']
+        # shrimp = request.form['shrimp']
+        # crab = request.form['crab']
+        # peanuts = request.form['peanuts']
+        # soba = request.form['soba']
+        print("egg: {}".format(egg))
+        # print("milk: {}".format(milk))
+        # print("wheat: {}".format(wheat))
+        # print("shrimp: {}".format(shrimp))
+        # print("crab: {}".format(crab))
+        # print("peanuts: {}".format(peanuts))
+        # print("soba: {}".format(soba))
+    return render_template('auth/allergies.html')
+
 
 
 @bp.route('/login', methods=('GET', 'POST'))

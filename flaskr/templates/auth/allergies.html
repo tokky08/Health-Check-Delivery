@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <h1>アレルギーを選択してください</h1>
+
+  <form method="post">
+    <input type="checkbox" name="allergies" value="egg">卵
+    <input type="checkbox" name="allergies" value="milk">ミルク
+    <input type="checkbox" name="allergies" value="wheat">小麦
+    <input type="checkbox" name="allergies" value="shrimp">エビ
+    <input type="checkbox" name="allergies" value="crab">カニ
+    <input type="checkbox" name="allergies" value="peanuts">ピーナッツ
+    <input type="checkbox" name="allergies" value="soba">蕎麦
+
+    <input type="submit" value="Register">
+  </form>
+
+{% endblock %}

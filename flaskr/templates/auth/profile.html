@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <h1>プロフィール設定</h1>
+
+  <form method="post">
+    <label for="weight">体重</label>
+    <input name="weight" id="weight" required>
+    <label for="height">身長</label>
+    <input name="height" id="height" required>
+    <input type="radio" name="gender" value="male">男性
+    <input type="radio" name="gender" value="female">女性
+  
+    <input type="submit" value="Register">
+  </form>
+
+{% endblock %}
