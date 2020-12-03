@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
+{% block header %}
+<a href="">ログアウト</a>
+<ul>
+    <li><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+    <li><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+    <li><a href="">配達状況</a></li>
+    <li><a href="">Q&A</a></li>
+    <li><a href="">利用規約</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
+
+<img src="" alt="">
+<p>{{ user_name }}さん</p>
+<p>あなたは{{type_bmi}}です<br>{{type_disc}}<p>
+
 
 <h1>プロフィールページ</h1>
 <a href={{url_for('blog.log', user_name=user_name)}}>食事履歴</a>
@@ -12,3 +28,5 @@
 <a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="dinner")}}>明日の夜食を決める</a>
 
 {% endblock %}
+
+

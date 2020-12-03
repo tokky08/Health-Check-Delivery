@@ -18,9 +18,24 @@ def profile(user_name):
     bmi = bmi_get(user)
     menu_id = request.args.get("menu_id")
     if menu_id is None:
-        user = user_get(user_name)
-        bmi = bmi_get(user)
-        return render_template('blog/profile.html', user_name=user_name, bmi=bmi)
+        # user = user_get(user_name)
+        # bmi = bmi_get(user)
+        type_bmi = "low" if bmi < 25 else "high"
+        if bmi < 20:
+            type_bmi = "低体重タイプ"
+            type_disc = "あなたは痩せ気味のため、毎日３食しっかり摂取し、適正体重の維持とバランスのとれた食生活の確立を目指しましょう。"
+        elif 25 < bmi:
+            type_bmi = "肥満タイプ"
+            type_disc = "あなたは肥満気味のため、野菜やキノコ類、海藻類など栄養豊富なものを摂取し、規則正しい食事を送ることを心がけましょう。"
+        else:
+            type_bmi = "標準タイプ"
+            type_disc = "あなたは健康的な体です。このままの状態を維持し、毎日健康的な食生活を送りましょう。"
+        return render_template('blog/profile.html',
+            user_name = user_name,
+            bmi = bmi,
+            type_bmi = type_bmi,
+            type_disc = type_disc
+        )
     else:
         db = get_db()
         menu = db.execute(
@@ -95,10 +110,36 @@ def update_1(user_name):
 
     if request.method == 'POST':
         address = request.form['address']
+        tel = request.form["tel"]
+        mail = request.form["mail"]
         weight = request.form['weight']
         height = request.form['height']
-        course = request.form['course']
+        gender = request.form['gender']
+        allergies = request.form.getlist('allergies')
         error = None
+
+        egg = 0
+        milk = 0
+        wheat = 0
+        shrimp = 0
+        crab = 0
+        peanuts = 0
+        soba = 0
+        for item in allergies:
+            if item == "egg":
+                egg = 1
+            elif item == "milk":
+                milk = 1
+            elif item == "wheat":
+                wheat = 1
+            elif item == "shrimp":
+                shrimp = 1
+            elif item == "crab":
+                crab = 1
+            elif item == "peanuts":
+                peanuts = 1
+            elif item == "soba":
+                soba = 1
 
         # if not title:
         #     error = 'Title is required.'
@@ -108,9 +149,9 @@ def update_1(user_name):
         else:
             db = get_db()
             db.execute(
-                'UPDATE user SET address = ?, weight = ?, height = ?, course = ?'
+                'UPDATE user SET address = ?, tel = ?, mail = ?, weight = ?, height = ?, gender = ?, egg = ?, milk = ?, wheat = ?, shrimp = ?, crab = ?, peanuts = ?, soba = ?'
                 ' WHERE username = ?',
-                (address, weight, height, course, user_name)
+                (address, tel, mail, weight, height, gender, egg, milk, wheat, shrimp, crab, peanuts, soba, user_name)
             )
             db.commit()
             return redirect(url_for('blog.profile', user_name=user_name))

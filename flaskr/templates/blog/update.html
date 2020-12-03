@@ -4,14 +4,24 @@
   <form method="post">
     <label for="address">住所</label>
     <input name="address" id="address" value="{{ request.form['address'] or user['address'] }}" required>
-    <label for="weight">体重</label>
+    <label for="tel">電話番号</label>
+    <input name="tel" id="tel" value="{{ request.form['tel'] or user['tel'] }}" required>
+    <label for="mail">メールアドレス（任意）</label>
+    <input name="mail" id="mail" value="{{ request.form['mail'] or user['mail'] }}">
+    <label for="weight">体重（kg）</label>
     <input name="weight" id="weight" value="{{ request.form['weight'] or user['weight'] }}" required>
-    <label for="height">身長</label>
+    <label for="height">身長（cm）</label>
     <input name="height" id="height" value="{{ request.form['height'] or user['height'] }}" required>
-    <input type="radio" name="course" value="health">標準健康コース
-    <input type="radio" name="course" value="diet">ダイエットコース
-    <input type="radio" name="course" value="muscle">筋肉コース
-    <input type="submit" value="Save">
+    <input type="radio" name="gender" value="male">男性
+    <input type="radio" name="gender" value="female">女性
+    <input type="checkbox" name="allergies" value="egg">卵
+    <input type="checkbox" name="allergies" value="milk">ミルク
+    <input type="checkbox" name="allergies" value="wheat">小麦
+    <input type="checkbox" name="allergies" value="shrimp">エビ
+    <input type="checkbox" name="allergies" value="crab">カニ
+    <input type="checkbox" name="allergies" value="peanuts">ピーナッツ
+    <input type="checkbox" name="allergies" value="soba">蕎麦
+    <input type="submit" value="編集する">
   </form>
 
 {% endblock %}

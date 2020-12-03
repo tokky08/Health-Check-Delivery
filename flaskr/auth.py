@@ -21,10 +21,6 @@ def register():
         address = request.form['address']
         tel = request.form['tel']
         mail = request.form['mail']
-        # weight = request.form['weight']
-        # height = request.form['height']
-        # gender = request.form['gender']
-        # course = request.form['course']
 
         db = get_db()
         error = None
@@ -98,11 +94,7 @@ def allergies():
         height = request.args.get('height')
         gender = request.args.get('gender')
         allergies = request.form.getlist('allergies')
-        # allergies_list = ["egg", "milk", "wheat", "shrimp", "crab", "peanuts", "soba"]
-        # for item_outer in allergies:
-        #     for item_inner in allergies_list:
-        #         if item_outer == item_inner:
-
+        
         egg = 0
         milk = 0
         wheat = 0
@@ -125,15 +117,6 @@ def allergies():
                 peanuts = 1
             elif item == "soba":
                 soba = 1
-        print("username: {}".format(username))
-        print("password: {}".format(password))
-        print("address: {}".format(address))
-        print("tel: {}".format(tel))
-        print("mail: {}".format(mail))
-        print("weight: {}".format(weight))
-        print("height: {}".format(height))
-        print("gender: {}".format(gender))
-        print("allergies: {}".format(allergies))
 
         db = get_db()
         db.execute(
