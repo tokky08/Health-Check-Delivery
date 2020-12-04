@@ -5,16 +5,11 @@
 
 {% for log in logs %}
     <ul>
-        <li>id:{{log["id"]}}</li>
-        <li>ユーザ名:{{log["username"]}}</li>
-        <li>メニューID:{{log["menuid"]}}</li>
-        <li>料理名:{{log["menuname"]}}</li>
-        <li>img:{{log["img"]}}</li>
-        <li>朝昼晩:{{log["eattime"]}}</li>
-        <li>タイプ:{{log["type"]}}</li>
-        <li>カロリー:{{log["calorie"]}}</li>
-        <li>説明文:{{log["details"]}}</li>
         <li>注文日時:{{log["created"]}}</li>
+        <li>朝昼晩:{{log["eattime"]}}</li>
+        <li><img src="{{url_for('static', filename='img/menu/' + log["img"]) }}" width="500" alt=""></li>
+        <li>料理名:{{log["menuname"]}}</li>
+        <li>カロリー:{{log["calorie"]}}</li>
     </ul> 
 {% endfor %}
 

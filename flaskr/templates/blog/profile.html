@@ -12,20 +12,13 @@
 
 {% block content %}
 
-<img src="" alt="">
-<p>{{ user_name }}さん</p>
+<img src="{{url_for('static', filename='img/type/'+ img_type + '_' + img_gender + '.jpg') }}" width="500" alt="">
+<h1>{{ user_name }}さん</h1>
 <p>あなたは{{type_bmi}}です<br>{{type_disc}}<p>
 
-
-<h1>プロフィールページ</h1>
-<a href={{url_for('blog.log', user_name=user_name)}}>食事履歴</a>
-<a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a>
-<h1>ユーザ名：{{ user_name }}</h1>
-<h1>BMI：{{ bmi }}</h1>
-
-<a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="morning")}}>明日の朝食を決める</a>
-<a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="lunch")}}>明日の昼食を決める</a>
-<a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="dinner")}}>明日の夜食を決める</a>
+<p><a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="morning")}}>明日の朝食を決める</a></p>
+<p><a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="lunch")}}>明日の昼食を決める</a></p>
+<p><a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="dinner")}}>明日の夜食を決める</a></p>
 
 {% endblock %}
 

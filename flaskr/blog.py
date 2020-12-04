@@ -17,27 +17,34 @@ def profile(user_name):
     user = user_get(user_name)
     bmi = bmi_get(user)
     menu_id = request.args.get("menu_id")
-    if menu_id is None:
-        # user = user_get(user_name)
-        # bmi = bmi_get(user)
-        type_bmi = "low" if bmi < 25 else "high"
-        if bmi < 20:
-            type_bmi = "低体重タイプ"
-            type_disc = "あなたは痩せ気味のため、毎日３食しっかり摂取し、適正体重の維持とバランスのとれた食生活の確立を目指しましょう。"
-        elif 25 < bmi:
-            type_bmi = "肥満タイプ"
-            type_disc = "あなたは肥満気味のため、野菜やキノコ類、海藻類など栄養豊富なものを摂取し、規則正しい食事を送ることを心がけましょう。"
-        else:
-            type_bmi = "標準タイプ"
-            type_disc = "あなたは健康的な体です。このままの状態を維持し、毎日健康的な食生活を送りましょう。"
-        return render_template('blog/profile.html',
-            user_name = user_name,
-            bmi = bmi,
-            type_bmi = type_bmi,
-            type_disc = type_disc
-        )
+
+    db = get_db()
+    gender = db.execute(
+        'SELECT gender'
+        ' FROM user'
+        ' WHERE username = ?',
+        (user_name,)
+    ).fetchone()
+
+    if gender == "male":
+        img_gender = "male"
     else:
-        db = get_db()
+        img_gender = "female"
+
+    if bmi < 20:
+        img_type = "slim"
+        type_bmi = "低体重タイプ"
+        type_disc = "あなたは痩せ気味のため、毎日３食しっかり摂取し、適正体重の維持とバランスのとれた食生活の確立を目指しましょう。"
+    elif 25 < bmi:
+        img_type = "plump"
+        type_bmi = "肥満タイプ"
+        type_disc = "あなたは肥満気味のため、野菜やキノコ類、海藻類など栄養豊富なものを摂取し、規則正しい食事を送ることを心がけましょう。"
+    else:
+        img_type = "standard"
+        type_bmi = "標準タイプ"
+        type_disc = "あなたは健康的な体です。このままの状態を維持し、毎日健康的な食生活を送りましょう。"
+
+    if menu_id:
         menu = db.execute(
             'SELECT *'
             ' FROM menu'
@@ -58,7 +65,33 @@ def profile(user_name):
             (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, details)
         )
         db.commit()
-        return render_template('blog/profile.html', user_name=user_name, bmi=bmi)
+        
+    return render_template('blog/profile.html',
+        user_name=user_name,
+        bmi=bmi,
+        type_bmi = type_bmi,
+        type_disc=type_disc,
+        img_gender=img_gender,
+        img_type = img_type
+    )
+
+@bp.route('/<user_name>/check', methods=('GET', 'POST'))
+def check(user_name):
+    menu_id = request.args.get("menu_id")
+    if menu_id:
+        menu = db.execute(
+            'SELECT *'
+            ' FROM menu'
+            ' WHERE id = ?',
+            (menu_id,)
+        ).fetchone()
+
+        menuname = menu["menuname"]
+        img = menu["img"]
+        eattime = menu["eattime"]
+        type_bmi = menu["type"]
+        calorie = menu["calorie"]
+        details = menu["details"]
 
 
 

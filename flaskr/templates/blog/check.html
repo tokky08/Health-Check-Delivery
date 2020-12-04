@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>詳細画面</h1>
+<h1>注文確認画面</h1>
 
 <ul>
     <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" width="500" alt=""></li>
@@ -12,6 +12,7 @@
 
 <h2>配達時間を選択してください</h2>
 <p><input type="time" name="example" min="07:00" max="11:00" step="1800" value="08:00"></p>
+<p>以上でよろしいですか？</p>
 
 <a href="{{url_for('blog.profile', user_name=user_name, menu_id=menu_id)}}">注文</a>
 
