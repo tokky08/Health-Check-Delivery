@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>配達状況画面</h1>
+
+{% for item in status %}
+    <ul>
+        <li>注文日時:{{item["created"]}}</li>
+        <li>朝昼晩:{{item["eattime"]}}</li>
+        <li><img src="{{url_for('static', filename='img/menu/' + item["img"]) }}" width="500" alt=""></li>
+        <li>料理名:{{item["menuname"]}}</li>
+        <li>カロリー:{{item["calorie"]}}</li>
+        <li>配達予定時間:{{item["deliverytime"]}}</li>
+    </ul> 
+{% endfor %}
+
+{% endblock %}

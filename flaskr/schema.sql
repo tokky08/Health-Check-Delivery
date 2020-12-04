@@ -59,6 +59,7 @@ CREATE TABLE ordered (
   type TEXT NOT NULL,
   calorie INTEGER NOT NULL,
   details TEXT NOT NULL,
+  deliverytime TEXT,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (username) REFERENCES user (username)
 );

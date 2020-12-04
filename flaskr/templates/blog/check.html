@@ -10,10 +10,10 @@
     <li>説明文:{{menu["details"]}}</li>
 </ul>
 
-<h2>配達時間を選択してください</h2>
-<p><input type="time" name="example" min="07:00" max="11:00" step="1800" value="08:00"></p>
+<h2>配達時間</h2>
+<p>{{delivery_time}}</p>
 <p>以上でよろしいですか？</p>
 
-<a href="{{url_for('blog.profile', user_name=user_name, menu_id=menu_id)}}">注文</a>
+<a href="{{url_for('blog.profile', user_name=user_name, menu_id=menu_id, delivery_time=delivery_time)}}">注文</a>
 
 {% endblock %}

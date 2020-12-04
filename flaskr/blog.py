@@ -17,32 +17,32 @@ def profile(user_name):
     user = user_get(user_name)
     bmi = bmi_get(user)
     menu_id = request.args.get("menu_id")
-
+    
     db = get_db()
-    gender = db.execute(
-        'SELECT gender'
+    user = db.execute(
+        'SELECT *'
         ' FROM user'
         ' WHERE username = ?',
         (user_name,)
     ).fetchone()
 
-    if gender == "male":
+    if user["gender"] == "male":
         img_gender = "male"
     else:
         img_gender = "female"
 
     if bmi < 20:
         img_type = "slim"
-        type_bmi = "低体重タイプ"
-        type_disc = "あなたは痩せ気味のため、毎日３食しっかり摂取し、適正体重の維持とバランスのとれた食生活の確立を目指しましょう。"
+        bmi_type = "低体重タイプ"
+        disc_type = "あなたは痩せ気味のため、毎日３食しっかり摂取し、適正体重の維持とバランスのとれた食生活の確立を目指しましょう。"
     elif 25 < bmi:
         img_type = "plump"
-        type_bmi = "肥満タイプ"
-        type_disc = "あなたは肥満気味のため、野菜やキノコ類、海藻類など栄養豊富なものを摂取し、規則正しい食事を送ることを心がけましょう。"
+        bmi_type = "肥満タイプ"
+        disc_type = "あなたは肥満気味のため、野菜やキノコ類、海藻類など栄養豊富なものを摂取し、規則正しい食事を送ることを心がけましょう。"
     else:
         img_type = "standard"
-        type_bmi = "標準タイプ"
-        type_disc = "あなたは健康的な体です。このままの状態を維持し、毎日健康的な食生活を送りましょう。"
+        bmi_type = "標準タイプ"
+        disc_type = "あなたは健康的な体です。このままの状態を維持し、毎日健康的な食生活を送りましょう。"
 
     if menu_id:
         menu = db.execute(
@@ -58,42 +58,44 @@ def profile(user_name):
         type_bmi = menu["type"]
         calorie = menu["calorie"]
         details = menu["details"]
+
+        delivery_time = request.args.get("delivery_time")
         
         db.execute(
-            'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, details)'
-            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, details)
+            'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, deliverytime, details)'
+            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, delivery_time, details)
         )
         db.commit()
         
     return render_template('blog/profile.html',
         user_name=user_name,
         bmi=bmi,
-        type_bmi = type_bmi,
-        type_disc=type_disc,
+        bmi_type = bmi_type,
+        disc_type = disc_type,
         img_gender=img_gender,
         img_type = img_type
     )
 
 @bp.route('/<user_name>/check', methods=('GET', 'POST'))
 def check(user_name):
+    delivery_time = request.form["delivery_time"]
+    print(delivery_time)
     menu_id = request.args.get("menu_id")
-    if menu_id:
-        menu = db.execute(
-            'SELECT *'
-            ' FROM menu'
-            ' WHERE id = ?',
-            (menu_id,)
-        ).fetchone()
-
-        menuname = menu["menuname"]
-        img = menu["img"]
-        eattime = menu["eattime"]
-        type_bmi = menu["type"]
-        calorie = menu["calorie"]
-        details = menu["details"]
-
-
+    db = get_db()
+    menu = db.execute(
+        'SELECT *'
+        ' FROM menu'
+        ' WHERE id = ?',
+        (menu_id,)
+    ).fetchone()
+    return render_template('blog/check.html',
+        user_name=user_name,
+        menu_id=menu_id,
+        menu=menu,
+        delivery_time=delivery_time
+    )
+    
 
 @bp.route('/<user_name>/menu/<int:bmi>', methods=('GET', 'POST'))
 def menu(user_name, bmi):
@@ -135,6 +137,19 @@ def log(user_name):
     ).fetchall()
     
     return render_template('blog/log.html', logs=logs)
+
+@bp.route('/<user_name>/status', methods=('GET', 'POST'))
+def status(user_name):
+    db = get_db()
+    status = db.execute(
+        'SELECT *'
+        ' FROM ordered o JOIN user u ON o.username = u.username'
+        ' WHERE o.username = ?'
+        ' ORDER BY created DESC',
+        (user_name,)
+    ).fetchall()
+    
+    return render_template('blog/status.html', status=status)
 
 @bp.route('/<user_name>/update', methods=('GET', 'POST'))
 # @login_required
