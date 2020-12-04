@@ -11,6 +11,7 @@
         <li>料理名:{{item["menuname"]}}</li>
         <li>カロリー:{{item["calorie"]}}</li>
         <li>配達予定時間:{{item["deliverytime"]}}</li>
+        <li><a href={{url_for('blog.cancel', user_name=user_name, created=item["created"])}}>取り消しボタン</a></li>
     </ul> 
 {% endfor %}
 

@@ -12,6 +12,16 @@ bp = Blueprint('blog', __name__)
 def index():
     return render_template('blog/top.html')
 
+
+@bp.route('/<user_name>/cancel')
+def cancel(user_name):
+    created = request.args.get("created")
+    db = get_db()
+    db.execute('DELETE FROM ordered WHERE created = ?', (created,))
+    db.commit()
+    return redirect(url_for('blog.profile', user_name=user_name))
+
+
 @bp.route('/<user_name>/profile', methods=('GET', 'POST'))
 def profile(user_name):
     user = user_get(user_name)
@@ -80,7 +90,6 @@ def profile(user_name):
 @bp.route('/<user_name>/check', methods=('GET', 'POST'))
 def check(user_name):
     delivery_time = request.form["delivery_time"]
-    print(delivery_time)
     menu_id = request.args.get("menu_id")
     db = get_db()
     menu = db.execute(
@@ -140,6 +149,8 @@ def log(user_name):
 
 @bp.route('/<user_name>/status', methods=('GET', 'POST'))
 def status(user_name):
+    user = user_get(user_name)
+    bmi = bmi_get(user)
     db = get_db()
     status = db.execute(
         'SELECT *'
@@ -149,7 +160,7 @@ def status(user_name):
         (user_name,)
     ).fetchall()
     
-    return render_template('blog/status.html', status=status)
+    return render_template('blog/status.html', status=status, user_name=user_name, bmi=bmi)
 
 @bp.route('/<user_name>/update', methods=('GET', 'POST'))
 # @login_required
