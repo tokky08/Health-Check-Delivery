@@ -1,21 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>詳細画面</h1>
+<div id="detail_content" class="card">
+  <div class="card-body">
+    <div class="detail_img"><img class="img" src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt=""></div>
+    <h4 class="card-title">{{menu["menuname"]}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">カロリー：{{menu["calorie"]}} kcal</h6>
+    <p class="card-text">{{menu["details"]}}</p>
+  </div>
+</div>
 
+<!--
 <ul>
     <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt=""></li>
     <li>料理名:{{menu["menuname"]}}</li>
-    <li>カロリー:{{menu["calorie"]}}</li>
+    <li>カロリー:{{menu["calorie"]}} kcal</li>
     <li>説明文:{{menu["details"]}}</li>
 </ul>
+-->
 
-<h2>配達時間を選択してください</h2>
-
-<form action="{{url_for('blog.check', user_name=user_name, menu_id=menu_id, eat_time=eat_time)}}" method="POST">
-    <input type="time" name="delivery_time" min="07:00" max="11:00" step="1800" value="08:00">
-    <input type="submit" value="注文">
-</form>
+<div class="delivery_time_content">
+    <p class="delivery_time_title">配達時間を選択してください</p>
+    <form class="delivery_time_form" action="{{url_for('blog.check', user_name=user_name, menu_id=menu_id, eat_time=eat_time)}}" method="POST">
+        <div><input type="time" name="delivery_time" min="07:00" max="11:00" step="1800" value="08:00"></div>
+        <div><button type="submit" class="btn btn-outline-danger" value="注文">注文</button></div>
+    </form>
+</div>
 
 
 {% endblock %}

@@ -1,0 +1,30 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+#order{
+    background-color: $backgroundColor;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.order_content{
+    display: flex;
+    .order_img{
+        width: 40%;
+        margin: 0 auto;
+        // border: 1px solid $paragraphColor;
+        .img{
+            width: 100%;
+        }
+    }
+    .order_text{
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

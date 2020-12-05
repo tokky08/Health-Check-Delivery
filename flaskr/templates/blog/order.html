@@ -1,17 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>注文画面</h1>
-<h2>明日の{{eat_time}}を決めてください</h2>
+<h3 class="text-center">明日の{{eat_time}}を決めてください</h3>
 
 {% for menu in menus %}
+<div id="order" class="card mt-3">
     <a href="{{ url_for("blog.detail", user_name=user_name, menu_id=menu["id"], eat_time=eat_time) }}">
-        <ul>
-            <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt=""></li>
-            <li>料理名:{{menu["menuname"]}}</li>
-            <li>カロリー:{{menu["calorie"]}}</li>
-        </ul>
+        <div class="order_content">
+            <div class="order_img">
+                <img class="img" src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt="">
+            </div>
+            <div class="order_text">
+                <div class="order_text_inner">
+                    <p>{{menu["menuname"]}}</p>
+                    <p>カロリー：{{menu["calorie"]}} kcal</p>
+                </div>
+            </div>
+        </div>
     </a>
+</div>
 {% endfor %}
 
 {% endblock %}

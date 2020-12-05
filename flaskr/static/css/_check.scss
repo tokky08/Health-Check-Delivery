@@ -4,11 +4,8 @@ $buttontextColor: #33272a;
 $paragraphColor: #594a4e;
 $headlineColor: #33272a;
 
-.log_titile{
-    width: 90%;
-    margin: 0 auto;
-}
-.log_time{
-    width: 90%;
+#check_content_inner{
+    background-color: $backgroundColor;
+    width: 80%;
     margin: 0 auto;
 }

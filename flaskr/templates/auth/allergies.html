@@ -3,6 +3,7 @@
 
   <h1>アレルギーを選択してください</h1>
 
+<!--
   <form method="post">
     <input type="checkbox" name="allergies" value="egg">卵
     <input type="checkbox" name="allergies" value="milk">ミルク
@@ -11,8 +12,40 @@
     <input type="checkbox" name="allergies" value="crab">カニ
     <input type="checkbox" name="allergies" value="peanuts">ピーナッツ
     <input type="checkbox" name="allergies" value="soba">蕎麦
-
     <input type="submit" value="設定を終了する">
+  </form>
+-->
+
+  <form method="post" class="login_form">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="egg">
+      <label class="custom-control-label" for="customCheck1">たまご</label>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="milk">
+      <label class="custom-control-label" for="customCheck1">ミルク</label>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="wheat">
+      <label class="custom-control-label" for="customCheck1">小麦</label>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="shrimp">
+      <label class="custom-control-label" for="customCheck1">エビ</label>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="crab">
+      <label class="custom-control-label" for="customCheck1">カニ</label>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="peanuts">
+      <label class="custom-control-label" for="customCheck1">ピーナッツ</label>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="soba">
+      <label class="custom-control-label" for="customCheck1">蕎麦</label>
+    </div>
+    <button type="submit" class="btn btn-outline-danger" value="ログイン">ログイン</button>
   </form>
 
 {% endblock %}

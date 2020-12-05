@@ -11,6 +11,7 @@
     flex: 1; }
   #body #footer {
     margin: 0 auto;
+    padding: 10px 0;
     background-color: #33272a;
     color: white;
     width: 100%;
@@ -49,6 +50,14 @@
     width: 100%;
     text-align: center; }
 
+.log_titile {
+  width: 90%;
+  margin: 0 auto; }
+
+.log_time {
+  width: 90%;
+  margin: 0 auto; }
+
 .login_text {
   color: #594a4e; }
 
@@ -61,6 +70,61 @@
 
 .register_text {
   color: #594a4e; }
+
+.img {
+  width: 40%;
+  margin: 0 auto; }
+  .img .img_size {
+    width: 100%; }
+
+.profile_content {
+  width: 90%;
+  margin: 0 auto; }
+
+.profile_text {
+  color: #594a4e; }
+
+#order {
+  background-color: #faeee7;
+  width: 90%;
+  margin: 0 auto; }
+
+.order_content {
+  display: flex; }
+  .order_content .order_img {
+    width: 40%;
+    margin: 0 auto; }
+    .order_content .order_img .img {
+      width: 100%; }
+  .order_content .order_text {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
+#detail_content {
+  background-color: #faeee7;
+  width: 90%;
+  margin: 0 auto; }
+  #detail_content .detail_img {
+    width: 80%;
+    margin: 0 auto; }
+    #detail_content .detail_img .img {
+      width: 100%; }
+
+.delivery_time_content .delivery_time_title {
+  text-align: center; }
+.delivery_time_content .delivery_time_form {
+  text-align: center; }
+
+#check_content_inner {
+  background-color: #faeee7;
+  width: 80%;
+  margin: 0 auto; }
+
+.update_title {
+  width: 80%;
+  margin: 0 auto; }
 
 .button_content {
   width: 40%;
@@ -87,16 +151,5 @@
   border: 1px solid #33272a; }
   .button_content:hover .button_text {
     color: #33272a; }
-
-.login_btn {
-  color: #33272a;
-  text-decoration: none;
-  align-items: center; }
-  .login_btn .button_text {
-    margin-bottom: 0;
-    text-align: center;
-    color: #ff8ba7;
-    padding: 10px 0;
-    font-weight: bold; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>注文履歴画面</h1>
+<h3 class="log_titile">注文履歴</h3>
 
 {% for log in logs %}
-    <ul>
-        <li>注文日時:{{log["created"]}}</li>
-        <li>注文日時:{{log['created'].strftime('%Y-%m-%d')}}</li>
-        <li>朝昼晩:{{log["eattime"]}}</li>
-        <li><img src="{{url_for('static', filename='img/menu/' + log["img"]) }}" alt=""></li>
-        <li>料理名:{{log["menuname"]}}</li>
-        <li>カロリー:{{log["calorie"]}}</li>
-    </ul> 
+<p class="log_time mt-5">注文日時：{{log["created"]}}　{{log["eattime"]}}</p>
+<div id="detail_content" class="card">
+  <div class="card-body">
+    <div class="detail_img"><img class="img" src="{{url_for('static', filename='img/menu/' + log["img"]) }}" alt=""></div>
+    <h4 class="card-title">{{log["menuname"]}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">カロリー：{{log["calorie"]}} kcal</h6>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}

@@ -1,18 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>配達状況画面</h1>
+<h3 class="log_titile">配達状況画面</h3>
 
 {% for item in status %}
-    <ul>
-        <li>注文日時:{{item["created"]}}</li>
-        <li>朝昼晩:{{item["eattime"]}}</li>
-        <li><img src="{{url_for('static', filename='img/menu/' + item["img"]) }}" width="500" alt=""></li>
-        <li>料理名:{{item["menuname"]}}</li>
-        <li>カロリー:{{item["calorie"]}}</li>
-        <li>配達予定時間:{{item["deliverytime"]}}</li>
-        <li><a href={{url_for('blog.cancel', user_name=user_name, created=item["created"])}}>取り消しボタン</a></li>
-    </ul> 
+<p class="log_time mt-5">注文日時：{{item["created"]}}　{{item["eattime"]}}</p>
+<div id="detail_content" class="card">
+  <div class="card-body">
+    <div class="detail_img"><img class="img" src="{{url_for('static', filename='img/menu/' + item["img"]) }}" alt=""></div>
+    <h4 class="card-title">{{item["menuname"]}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">配達予定時間：{{item["deliverytime"]}}</h6>
+    <div class="button_content">
+        <a href={{url_for('blog.cancel', user_name=user_name, created=item["created"])}} class="button_link">
+            <p class="button_text">注文を取り消す</p>
+        </a>
+    </div>
+  </div>
+</div>
 {% endfor %}
 
 {% endblock %}

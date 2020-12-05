@@ -1,19 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>注文確認画面</h1>
-
-<ul>
-    <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt=""></li>
-    <li>料理名:{{menu["menuname"]}}</li>
-    <li>カロリー:{{menu["calorie"]}}</li>
-    <li>説明文:{{menu["details"]}}</li>
-</ul>
-
-<h2>配達時間</h2>
-<p>{{delivery_time}}</p>
-<p>以上でよろしいですか？</p>
-
-<a href="{{url_for('blog.ordered', user_name=user_name, menu_id=menu_id, delivery_time=delivery_time)}}">注文</a>
+<div class="check_content text-center">
+    <h4 class="check_title">注文確認</h4>
+    <div id="check_content_inner" class="card">
+        <p class="check_name">料理名：<u>{{menu["menuname"]}}</u></p>
+        <p class="check_time">配達時間：<u>{{delivery_time}}</u></p>
+    </div>
+    <p class="check_final">以上でよろしいですか？</p>
+</div>
+<div class="button_content mt-5">
+    <a href="{{url_for('blog.ordered', user_name=user_name, menu_id=menu_id, delivery_time=delivery_time)}}" class="button_link">
+        <p class="button_text">注文する</p>
+    </a>
+</div>
 
 {% endblock %}

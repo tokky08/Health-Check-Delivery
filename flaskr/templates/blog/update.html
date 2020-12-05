@@ -1,27 +1,65 @@
 {% extends "layout.html" %}
 {% block content %}
 
-  <form method="post">
+<h3 class="update_title">プロフィール編集</h3>
+<form method="post" class="login_form">
+  <div class="form-group mt-3">
     <label for="address">住所</label>
-    <input name="address" id="address" value="{{ request.form['address'] or user['address'] }}" required>
+    <input name="address" type="text" class="form-control" id="formGroupExampleInput2" value="{{ request.form['address'] or user['address'] }}" required>
+  </div>
+  <div class="form-group mt-3">
     <label for="tel">電話番号</label>
-    <input name="tel" id="tel" value="{{ request.form['tel'] or user['tel'] }}" required>
+    <input name="tel" type="text" class="form-control" id="formGroupExampleInput2" value="{{ request.form['tel'] or user['tel'] }}" required>
+  </div>
+  <div class="form-group mt-3">
     <label for="mail">メールアドレス（任意）</label>
-    <input name="mail" id="mail" value="{{ request.form['mail'] or user['mail'] }}">
+    <input name="mail" type="text" class="form-control" id="formGroupExampleInput2" value="{{ request.form['height'] or user['height'] }}">
+  </div>
+  <div class="form-group">
     <label for="weight">体重（kg）</label>
-    <input name="weight" id="weight" value="{{ request.form['weight'] or user['weight'] }}" required>
+    <input name="weight" class="form-control" id="formGroupExampleInput" value="{{ request.form['weight'] or user['weight'] }}" required>
+  </div>
+  <div class="form-group">
     <label for="height">身長（cm）</label>
-    <input name="height" id="height" value="{{ request.form['height'] or user['height'] }}" required>
-    <input type="radio" name="gender" value="male">男性
-    <input type="radio" name="gender" value="female">女性
-    <input type="checkbox" name="allergies" value="egg">卵
-    <input type="checkbox" name="allergies" value="milk">ミルク
-    <input type="checkbox" name="allergies" value="wheat">小麦
-    <input type="checkbox" name="allergies" value="shrimp">エビ
-    <input type="checkbox" name="allergies" value="crab">カニ
-    <input type="checkbox" name="allergies" value="peanuts">ピーナッツ
-    <input type="checkbox" name="allergies" value="soba">蕎麦
-    <input type="submit" value="編集する">
-  </form>
+    <input name="height" class="form-control" id="formGroupExampleInput2" value="{{ request.form['height'] or user['height'] }}" required>
+  </div>
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio1" name="gender" class="custom-control-input" value="male">
+    <label class="custom-control-label" for="customRadio1">男性</label>
+  </div>
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio2" name="gender" class="custom-control-input" value="female">
+    <label class="custom-control-label" for="customRadio2">女性</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="egg">
+    <label class="custom-control-label" for="customCheck1">たまご</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="milk">
+    <label class="custom-control-label" for="customCheck1">ミルク</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="wheat">
+    <label class="custom-control-label" for="customCheck1">小麦</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="shrimp">
+    <label class="custom-control-label" for="customCheck1">エビ</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="crab">
+    <label class="custom-control-label" for="customCheck1">カニ</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="peanuts">
+    <label class="custom-control-label" for="customCheck1">ピーナッツ</label>
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" name="allergies" value="soba">
+    <label class="custom-control-label" for="customCheck1">蕎麦</label>
+  </div>
+  <button type="submit" class="btn btn-outline-danger" value="編集する">編集する</button>
+</form>
 
 {% endblock %}

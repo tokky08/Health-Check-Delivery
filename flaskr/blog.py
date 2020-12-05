@@ -112,15 +112,18 @@ def check(user_name):
             'SELECT datetime(?, "localtime")',
             (ordered["created"],)
         ).fetchone()
-        print(ordered_time[0])
-        time1 = ordered_time[0].split(" ")
-        print(time1)
-        print(time1[0])
-        datetime.date.now()
-    # 最終注文日が現在日と同じならばポップアップ形式でキャンセルするかを聞くような形にする
-    # print(ordered["created"].strftime('%Y-%m-%d'))
-    # if ordered["created"].strftime('%Y-%m-%d') == "今日と同じ日時":
-    #     return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time)
+        
+        ordered_time = ordered_time[0].split(" ")
+        ordered_time = ordered_time[0]
+        
+        dt_now = str(datetime.datetime.now())
+        dt_now = dt_now.split(" ")
+        dt_now = dt_now[0]
+        print(dt_now)
+
+        # 最終注文日が現在日と同じならばポップアップ形式でキャンセルするかを聞くような形にする
+        if ordered_time == dt_now:
+            return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time)
 
 
     delivery_time = request.form["delivery_time"]
@@ -142,7 +145,7 @@ def check(user_name):
 
 @bp.route('/<user_name>/menu/<int:bmi>', methods=('GET', 'POST'))
 def menu(user_name, bmi):
-    type_bmi = "low" if bmi < 25 else "high"
+    type_bmi = "low" if bmi < 20 else "high"
     eat_time = request.args.get("eat_time")
 
     db = get_db()
