@@ -6,8 +6,9 @@
 {% for log in logs %}
     <ul>
         <li>注文日時:{{log["created"]}}</li>
+        <li>注文日時:{{log['created'].strftime('%Y-%m-%d')}}</li>
         <li>朝昼晩:{{log["eattime"]}}</li>
-        <li><img src="{{url_for('static', filename='img/menu/' + log["img"]) }}" width="500" alt=""></li>
+        <li><img src="{{url_for('static', filename='img/menu/' + log["img"]) }}" alt=""></li>
         <li>料理名:{{log["menuname"]}}</li>
         <li>カロリー:{{log["calorie"]}}</li>
     </ul> 

@@ -4,7 +4,7 @@
 <h1>注文確認画面</h1>
 
 <ul>
-    <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" width="500" alt=""></li>
+    <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt=""></li>
     <li>料理名:{{menu["menuname"]}}</li>
     <li>カロリー:{{menu["calorie"]}}</li>
     <li>説明文:{{menu["details"]}}</li>
@@ -14,6 +14,6 @@
 <p>{{delivery_time}}</p>
 <p>以上でよろしいですか？</p>
 
-<a href="{{url_for('blog.profile', user_name=user_name, menu_id=menu_id, delivery_time=delivery_time)}}">注文</a>
+<a href="{{url_for('blog.ordered', user_name=user_name, menu_id=menu_id, delivery_time=delivery_time)}}">注文</a>
 
 {% endblock %}

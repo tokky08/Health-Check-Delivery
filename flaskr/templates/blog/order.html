@@ -5,9 +5,9 @@
 <h2>明日の{{eat_time}}を決めてください</h2>
 
 {% for menu in menus %}
-    <a href="{{ url_for("blog.detail", user_name=user_name, menu_id=menu["id"]) }}">
+    <a href="{{ url_for("blog.detail", user_name=user_name, menu_id=menu["id"], eat_time=eat_time) }}">
         <ul>
-            <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" width="500" alt=""></li>
+            <li><img src="{{url_for('static', filename='img/menu/' + menu["img"]) }}" alt=""></li>
             <li>料理名:{{menu["menuname"]}}</li>
             <li>カロリー:{{menu["calorie"]}}</li>
         </ul>

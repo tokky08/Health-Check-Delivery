@@ -61,6 +61,7 @@ CREATE TABLE ordered (
   details TEXT NOT NULL,
   deliverytime TEXT,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  -- created DATE DEFAULT (datetime('now')),
   FOREIGN KEY (username) REFERENCES user (username)
 );
 

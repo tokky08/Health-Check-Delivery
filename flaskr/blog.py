@@ -13,12 +13,41 @@ def index():
     return render_template('blog/top.html')
 
 
-@bp.route('/<user_name>/cancel')
+@bp.route('/<user_name>/cancel', methods=('GET', 'POST'))
 def cancel(user_name):
     created = request.args.get("created")
     db = get_db()
     db.execute('DELETE FROM ordered WHERE created = ?', (created,))
     db.commit()
+    return redirect(url_for('blog.profile', user_name=user_name))
+
+
+@bp.route('/<user_name>/ordered', methods=('GET', 'POST'))
+def ordered(user_name):
+    menu_id = request.args.get("menu_id")
+    db = get_db()
+    menu = db.execute(
+        'SELECT *'
+        ' FROM menu'
+        ' WHERE id = ?',
+        (menu_id,)
+    ).fetchone()
+
+    menuname = menu["menuname"]
+    img = menu["img"]
+    eattime = menu["eattime"]
+    type_bmi = menu["type"]
+    calorie = menu["calorie"]
+    details = menu["details"]
+    delivery_time = request.args.get("delivery_time")
+    
+    db.execute(
+        'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, deliverytime, details)'
+        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, delivery_time, details)
+    )
+    db.commit()
+
     return redirect(url_for('blog.profile', user_name=user_name))
 
 
@@ -53,30 +82,6 @@ def profile(user_name):
         img_type = "standard"
         bmi_type = "標準タイプ"
         disc_type = "あなたは健康的な体です。このままの状態を維持し、毎日健康的な食生活を送りましょう。"
-
-    if menu_id:
-        menu = db.execute(
-            'SELECT *'
-            ' FROM menu'
-            ' WHERE id = ?',
-            (menu_id,)
-        ).fetchone()
-
-        menuname = menu["menuname"]
-        img = menu["img"]
-        eattime = menu["eattime"]
-        type_bmi = menu["type"]
-        calorie = menu["calorie"]
-        details = menu["details"]
-
-        delivery_time = request.args.get("delivery_time")
-        
-        db.execute(
-            'INSERT INTO ordered (menuid, username, menuname, img, eattime, type, calorie, deliverytime, details)'
-            ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            (menu_id, user_name, menuname, img, eattime, type_bmi, calorie, delivery_time, details)
-        )
-        db.commit()
         
     return render_template('blog/profile.html',
         user_name=user_name,
@@ -89,9 +94,35 @@ def profile(user_name):
 
 @bp.route('/<user_name>/check', methods=('GET', 'POST'))
 def check(user_name):
+    eat_time = request.args.get("eat_time")
+    db = get_db()
+    ordered = db.execute(
+        'SELECT *'
+        ' FROM ordered'
+        ' WHERE eattime = ?'
+        ' ORDER BY created DESC',
+        (eat_time,)
+    ).fetchone()
+
+    if ordered:
+        print(ordered["created"].strftime('%Y-%m-%d'))
+        ordered_time = db.execute(
+            'SELECT datetime(?, "localtime")',
+            (ordered["created"],)
+        ).fetchone()
+        print(ordered_time[0])
+        time1 = ordered_time[0].split(" ")
+        print(time1)
+        print(time1[0])
+    # 最終注文日が現在日と同じならばポップアップ形式でキャンセルするかを聞くような形にする
+    # print(ordered["created"].strftime('%Y-%m-%d'))
+    # if ordered["created"].strftime('%Y-%m-%d') == "今日と同じ日時":
+    #     return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time)
+
+
     delivery_time = request.form["delivery_time"]
     menu_id = request.args.get("menu_id")
-    db = get_db()
+    # db = get_db()
     menu = db.execute(
         'SELECT *'
         ' FROM menu'
@@ -124,6 +155,7 @@ def menu(user_name, bmi):
 @bp.route('/<user_name>/detail', methods=('GET', 'POST'))
 def detail(user_name):
     menu_id = request.args.get("menu_id")
+    eat_time = request.args.get("eat_time")
     db = get_db()
     menu = db.execute(
         'SELECT *'
@@ -131,7 +163,7 @@ def detail(user_name):
         ' WHERE id = ?',
         (menu_id,)
     ).fetchone()
-    return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu)
+    return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time)
 
 
 @bp.route('/<user_name>/log', methods=('GET', 'POST'))
