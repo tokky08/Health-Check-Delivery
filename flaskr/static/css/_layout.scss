@@ -1,0 +1,27 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+.top_nav{
+    background-color: $headlineColor;
+}
+
+#body{
+    background-color: $backgroundColor;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    #main{
+        flex: 1;
+    }
+    #footer{
+        margin:0 auto;
+        background-color:$headlineColor;
+        color:white;
+        width: 100%;
+        text-align: center;
+    }
+}
+

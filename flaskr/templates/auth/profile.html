@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 
-  <h1>プロフィール設定</h1>
+<div class="authprofile">
+  <h1 class="text-center profile_text mt-5">プロフィール設定</h1>
+</div>
 
+<!--
   <form method="post">
     <label for="weight">体重（kg）</label>
     <input name="weight" id="weight" required>
@@ -11,6 +14,27 @@
     <input type="radio" name="gender" value="male">男性
     <input type="radio" name="gender" value="female">女性
     <input type="submit" value="アレルギー設定へ">
+  </form>
+-->
+
+  <form method="post" class="login_form">
+    <div class="form-group">
+      <label for="weight">体重（kg）</label>
+      <input name="weight" class="form-control" id="formGroupExampleInput" placeholder="体重を入力してください" required>
+    </div>
+    <div class="form-group">
+      <label for="height">身長（cm）</label>
+      <input name="height" class="form-control" id="formGroupExampleInput2" placeholder="身長を入力してください" required>
+    </div>
+    <div class="custom-control custom-radio">
+      <input type="radio" id="customRadio1" name="gender" class="custom-control-input" value="male">
+      <label class="custom-control-label" for="customRadio1">男性</label>
+    </div>
+    <div class="custom-control custom-radio">
+      <input type="radio" id="customRadio2" name="gender" class="custom-control-input" value="female">
+      <label class="custom-control-label" for="customRadio2">女性</label>
+    </div>
+    <button type="submit" class="btn btn-outline-danger" value="アレルギー設定へ">アレルギー設定へ</button>
   </form>
 
 {% endblock %}

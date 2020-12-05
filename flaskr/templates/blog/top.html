@@ -1,11 +1,45 @@
 {% extends "layout.html" %}
+{% block header %}
+
+
+
+{% endblock %}
+
 {% block content %}
 
 <div class="top">
-    <h1>Health Check Delivery</h1>
-    <p><img src="{{url_for('static', filename='img/logo/logo1.PNG') }}" width="500" alt=""></p>
-    <a href={{url_for('auth.login')}}>ログイン</a>
-    <a href={{url_for('auth.description')}}>新規登録</a>
+    <h1 class="text-center title mt-5">Health Check Delivery</h1>
+    <p class="logo">
+        <img class="logo_img" src="{{url_for('static', filename='img/logo/logo2.PNG') }}" alt="">
+    </p>
+    <div class="button_content mt-5">
+        <a href={{url_for('auth.login')}} class="button_link">
+            <p class="button_text">ログイン</p>
+        </a>
+    </div>
+    <div class="button_content mt-3">
+        <a href={{url_for('auth.description')}} class="button_link">
+            <p class="button_text">新規登録</p>
+        </a>
+    </div>
+
+
+
+<!--
+    <div class="btn_content mt-5">
+        <a href={{url_for('auth.login')}}>
+            <button type="button" class="btn btn-outline-primary btn_inner">ログイン</button>
+        </a>
+    </div>
+    <div class="btn_content mt-3">
+        <a href={{url_for('auth.description')}}>
+            <button type="button" class="btn btn-outline-primary btn_inner">新規登録</button>
+        </a>
+    </div>
+-->
+
+
+    
 <div>
 
 {% endblock %}

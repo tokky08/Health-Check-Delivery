@@ -5,6 +5,8 @@ from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
+import time
+import datetime
 
 bp = Blueprint('blog', __name__)
 
@@ -114,6 +116,7 @@ def check(user_name):
         time1 = ordered_time[0].split(" ")
         print(time1)
         print(time1[0])
+        datetime.date.now()
     # 最終注文日が現在日と同じならばポップアップ形式でキャンセルするかを聞くような形にする
     # print(ordered["created"].strftime('%Y-%m-%d'))
     # if ordered["created"].strftime('%Y-%m-%d') == "今日と同じ日時":

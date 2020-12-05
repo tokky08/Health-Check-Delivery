@@ -1,10 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 
-  <h1>新規登録画面</h1>
+<div class="register">
+  <h1 class="text-center register_text mt-5">新規登録画面</h1>
+</div>
 
+
+<!--
   <form method="post">
-    <label for="username">名前</label>
+   <label for="username">名前</label>
     <input name="username" id="username" required>
     <label for="password">パスワード</label>
     <input type="password" name="password" id="password" required>
@@ -14,7 +18,32 @@
     <input name="tel" id="tel" required>
     <label for="mail">メールアドレス（任意）</label>
     <input name="mail" id="mail">
-    <input type="submit" value="プロフィール説明へ">
+    <input type="submit" value="プロフィール設定へ">
+  </form>
+-->
+
+  <form method="post" class="login_form">
+    <div class="form-group mt-2">
+      <label for="username">ユーザ名</label>
+      <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="ユーザ名を入力してください" required>
+    </div>
+    <div class="form-group mt-1">
+      <label for="password">パスワード</label>
+      <input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="パスワードを入力してください" required>
+    </div>
+    <div class="form-group mt-1">
+      <label for="address">住所</label>
+      <input name="address" type="text" class="form-control" id="formGroupExampleInput2" placeholder="住所を入力してください" required>
+    </div>
+    <div class="form-group mt-1">
+      <label for="tel">電話番号</label>
+      <input name="tel" type="text" class="form-control" id="formGroupExampleInput2" placeholder="電話番号を入力してください" required>
+    </div>
+    <div class="form-group mt-1">
+      <label for="mail">メールアドレス（任意）</label>
+      <input name="mail" type="text" class="form-control" id="formGroupExampleInput2" placeholder="メールアドレスを入力してください">
+    </div>
+    <button type="submit" class="btn btn-outline-danger" value="プロフィール設定へ">プロフィール設定へ</button>
   </form>
 
 {% endblock %}
