@@ -3,3 +3,4 @@ __pycache__
 flaskr.egg-info
 memo.txt
 .sass-cache
+.vscode
