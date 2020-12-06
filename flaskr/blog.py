@@ -21,8 +21,28 @@ def cancel(user_name):
     db = get_db()
     db.execute('DELETE FROM ordered WHERE created = ?', (created,))
     db.commit()
+
     return redirect(url_for('blog.profile', user_name=user_name))
 
+@bp.route('/<user_name>/cancel_1', methods=('GET', 'POST'))
+def cancel_1(user_name):
+    created= request.args.get("created")
+    db = get_db()
+    db.execute('DELETE FROM ordered WHERE created = ?', (created,))
+
+    menu_id = request.args.get("menu_id")
+    eat_time = request.args.get("eat_time")
+    menu = db.execute(
+        'SELECT *'
+        ' FROM menu'
+        ' WHERE id = ?',
+        (menu_id,)
+    ).fetchone()
+    db.commit()
+
+    # return redirect(url_for('blog.detail', user_name=user_name))
+    # return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time, ordered_created=ordered["created"], dt_now=dt_now)
+    return render_template('blog/detail.html', user_name=user_name, menu=menu, eat_time=eat_time)
 
 @bp.route('/<user_name>/ordered', methods=('GET', 'POST'))
 def ordered(user_name):
@@ -96,14 +116,23 @@ def profile(user_name):
 
 @bp.route('/<user_name>/check', methods=('GET', 'POST'))
 def check(user_name):
-    eat_time = request.args.get("eat_time")
+    delivery_time = request.form["delivery_time"]
+    menu_id = request.args.get("menu_id")
     db = get_db()
+    menu = db.execute(
+        'SELECT *'
+        ' FROM menu'
+        ' WHERE id = ?',
+        (menu_id,)
+    ).fetchone()
+
+    eat_time = request.args.get("eat_time")
     ordered = db.execute(
         'SELECT *'
         ' FROM ordered'
-        ' WHERE eattime = ?'
+        ' WHERE eattime = ? and username = ?'
         ' ORDER BY created DESC',
-        (eat_time,)
+        (eat_time, user_name,)
     ).fetchone()
 
     if ordered:
@@ -115,26 +144,14 @@ def check(user_name):
         
         ordered_time = ordered_time[0].split(" ")
         ordered_time = ordered_time[0]
-        
         dt_now = str(datetime.datetime.now())
         dt_now = dt_now.split(" ")
         dt_now = dt_now[0]
-        print(dt_now)
 
         # 最終注文日が現在日と同じならばポップアップ形式でキャンセルするかを聞くような形にする
         if ordered_time == dt_now:
-            return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time)
+            return render_template('blog/detail.html', user_name=user_name, menu_id=menu_id, menu=menu, eat_time=eat_time, ordered_created=ordered["created"], dt_now=dt_now)
 
-
-    delivery_time = request.form["delivery_time"]
-    menu_id = request.args.get("menu_id")
-    # db = get_db()
-    menu = db.execute(
-        'SELECT *'
-        ' FROM menu'
-        ' WHERE id = ?',
-        (menu_id,)
-    ).fetchone()
     return render_template('blog/check.html',
         user_name=user_name,
         menu_id=menu_id,
@@ -152,7 +169,8 @@ def menu(user_name, bmi):
     menus = db.execute(
         'SELECT *'
         ' FROM menu'
-        ' WHERE eattime = ? and type = ?',
+        ' WHERE eattime = ? and type = ?'
+        ' LIMIT 3',
         (eat_time, type_bmi,)
     ).fetchall()
 
@@ -182,8 +200,16 @@ def log(user_name):
         ' ORDER BY created DESC',
         (user_name,)
     ).fetchall()
-    
-    return render_template('blog/log.html', logs=logs)
+
+    nowtime_list = []
+    for time in logs:
+        ordered_time = db.execute(
+            'SELECT datetime(?, "localtime")',
+            (time["created"],)
+        ).fetchone()
+        nowtime_list.append(ordered_time[0])
+
+    return render_template('blog/log.html', logs=logs, nowtime_list=nowtime_list, user_name=user_name)
 
 @bp.route('/<user_name>/status', methods=('GET', 'POST'))
 def status(user_name):
@@ -197,8 +223,69 @@ def status(user_name):
         ' ORDER BY created DESC',
         (user_name,)
     ).fetchall()
+
+    nowtime_list = []
+    for time in status:
+        ordered_time = db.execute(
+            'SELECT datetime(?, "localtime")',
+            (time["created"],)
+        ).fetchone()
+        nowtime_list.append(ordered_time[0])
+
+    dt_now = datetime.datetime.now()
+    dt_now = str(dt_now).split("-")
+    dt_now_2 = dt_now[2].split(" ")
+    dt_now_list = []
+    dt_now_list.append(dt_now[0])
+    dt_now_list.append(dt_now[1])
+    dt_now_list.append(dt_now_2[0])
+    dt_now_list.append(dt_now_2[1])
+    dt_now_time = dt_now_list[3].split(":")
+    year = int(dt_now_list[0])
+    month= int(dt_now_list[1])
+    day = int(dt_now_list[2])
+    hour = int(dt_now_time[0])
+    minutes = int(dt_now_time[1])
+    time_check_list = []
+
+    year_f = None
+    month_f =  None
+    day_f =  None
+
+    for i in status:
+        feature_date = i["created"] + datetime.timedelta(days=1)
+        feature_date = db.execute(
+            'SELECT datetime(?, "localtime")',
+            (feature_date,)
+        ).fetchone()
+        feature_date = feature_date[0].split("-")
+        feature_date_2 = feature_date[2].split(" ")
+        feature_date_list = []
+        feature_date_list.append(feature_date[0])
+        feature_date_list.append(feature_date[1])
+        feature_date_list.append(feature_date_2[0])
+        feature_date_list.append(i["deliverytime"])
+        feature_time = feature_date_list[3].split(":")
+        year_f = int(feature_date_list[0])
+        month_f = int(feature_date_list[1])
+        day_f = int(feature_date_list[2])
+        hour_f = int(feature_time[0])
+        minutes_f = int(feature_time[1])
+        now = datetime.datetime(year,month,day,hour,minutes,0)
+        feature = datetime.datetime(year_f,month_f,day_f,hour_f,minutes_f,0)
+
+        time_check_list.append(now < feature)
     
-    return render_template('blog/status.html', status=status, user_name=user_name, bmi=bmi)
+    return render_template('blog/status.html',
+        status=status,
+        user_name=user_name,
+        bmi=bmi,
+        nowtime_list=nowtime_list,
+        time_check_list=time_check_list,
+        year_f=year_f,
+        month_f=month_f,
+        day_f=day_f
+    )
 
 @bp.route('/<user_name>/update', methods=('GET', 'POST'))
 # @login_required
@@ -253,7 +340,7 @@ def update_1(user_name):
             db.commit()
             return redirect(url_for('blog.profile', user_name=user_name))
 
-    return render_template('blog/update.html', user=user)
+    return render_template('blog/update.html', user=user, user_name=user_name)
 
 
 def user_get(user_name):

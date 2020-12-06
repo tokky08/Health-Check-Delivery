@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Abel");
 .top_nav {
   background-color: #33272a; }
@@ -7,6 +8,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh; }
+  #body #header {
+    background-color: #33272a; }
   #body #main {
     flex: 1; }
   #body #footer {
@@ -16,6 +19,9 @@
     color: white;
     width: 100%;
     text-align: center; }
+
+.layout_back {
+  background-color: #faeee7 !important; }
 
 .top_nav {
   background-color: #33272a; }
@@ -58,6 +64,12 @@
   width: 90%;
   margin: 0 auto; }
 
+.log_text {
+  color: #594a4e; }
+
+.log_back {
+  background-color: #faeee7 !important; }
+
 .login_text {
   color: #594a4e; }
 
@@ -81,6 +93,15 @@
   width: 90%;
   margin: 0 auto; }
 
+.blogprofile_text {
+  color: #594a4e; }
+
+.button_size {
+  font-size: 13px; }
+
+.blogprofile_back {
+  background-color: #faeee7 !important; }
+
 .profile_text {
   color: #594a4e; }
 
@@ -102,6 +123,14 @@
     justify-content: center;
     align-items: center; }
 
+.order_text {
+  color: #594a4e;
+  width: 90%;
+  margin: 0 auto; }
+
+.order_back {
+  background-color: #faeee7 !important; }
+
 #detail_content {
   background-color: #faeee7;
   width: 90%;
@@ -117,14 +146,37 @@
 .delivery_time_content .delivery_time_form {
   text-align: center; }
 
+.detail_text {
+  color: #594a4e; }
+
+.detail_back {
+  background-color: #faeee7 !important; }
+
 #check_content_inner {
   background-color: #faeee7;
   width: 80%;
   margin: 0 auto; }
 
+.check_text {
+  color: #594a4e; }
+
+.check_back {
+  background-color: #faeee7 !important; }
+
 .update_title {
   width: 80%;
   margin: 0 auto; }
+
+.label {
+  display: block;
+  position: relative;
+  padding-left: 1em; }
+
+.update_text {
+  color: #594a4e; }
+
+.update_back {
+  background-color: #faeee7 !important; }
 
 .button_content {
   width: 40%;
@@ -151,5 +203,61 @@
   border: 1px solid #33272a; }
   .button_content:hover .button_text {
     color: #33272a; }
+
+/* モーダルCSS */
+.modalArea {
+  position: fixed;
+  z-index: 10;
+  /*サイトによってここの数値は調整 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.modalBg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 30, 0.9); }
+
+.modalWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-width: 500px;
+  padding: 10px 30px;
+  background-color: #fff; }
+
+.closeModal {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  cursor: pointer; }
+
+/* 以下ボタンスタイル */
+button {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #282828;
+  border-radius: 2px;
+  cursor: pointer; }
+
+#openModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.allergies_text {
+  color: #594a4e;
+  width: 90%;
+  margin: 0 auto; }
+
+.status_text {
+  color: #594a4e; }
+
+.status_back {
+  background-color: #faeee7 !important; }
 
 /*# sourceMappingURL=style.css.map */

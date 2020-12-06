@@ -1,10 +1,9 @@
 {% extends "layout.html" %}
-
 {% block header %}
-<li class="list-group-item update_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
-<li class="list-group-item update_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
-<li class="list-group-item update_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
-<li class="list-group-item update_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
+<li class="list-group-item mt-2"><a href={{url_for('blog.index')}}>ログアウト</a></li>
+<li class="list-group-item"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+<li class="list-group-item"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+<li class="list-group-item"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
 {% endblock %}
 {% block content %}
 
@@ -92,78 +91,30 @@
     <label class="custom-control-label" for="customCheck1">蕎麦</label>
   </div>-->
   <div class="update">
-    {% if request.form['egg'] == 1 or user['egg'] ==1 %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="egg" checked>たまご
-    </label>
-    {% else %}
     <label class="update_text mt-3">
       <input type="checkbox" name="allergies" value="egg">たまご
     </label>
-    {% endif %}
-
-    {% if request.form['milk'] == 1 or user['milk'] ==1 %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="milk" checked>ミルク
-    </label>  
-    {% else %}
     <label class="update_text mt-3">
       <input type="checkbox" name="allergies" value="milk">ミルク
-    </label>    
-    {% endif %}
-
-    {% if request.form['wheat'] == 1 or user['wheat'] ==1 %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="wheat" checked>小麦
-    </label>  
-    {% else %}
+    </label>
     <label class="update_text mt-3">
       <input type="checkbox" name="allergies" value="wheat">小麦
-    </label>    
-    {% endif %}    
-
-    {% if request.form['shrimp'] == 1 or user['shrimp'] ==1 %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="shrimp" checked>えび
-    </label>  
-    {% else %}
+    </label>
     <label class="update_text mt-3">
       <input type="checkbox" name="allergies" value="shrimp">えび
-    </label>    
-    {% endif %}    
-
-    {% if request.form['crab'] == 1 or user['crab'] ==1 %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="crab" checked>かに
-    </label>  
-    {% else %}
+    </label>
     <label class="update_text mt-3">
       <input type="checkbox" name="allergies" value="crab">かに
-    </label>    
-    {% endif %}    
-
-    {% if request.form['peanuts'] == 1 or user['peanuts'] ==1 %}
+    </label>
     <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="peanuts" checked>ピーナッツ(落花生)
-    </label>  
-    {% else %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="peanuts">ピーナッツ
-    </label>    
-    {% endif %}        
-
-
-    {% if request.form['soba'] == 1 or user['soba'] ==1 %}
-    <label class="update_text mt-3">
-      <input type="checkbox" name="allergies" value="soba" checked>そば
-    </label>  
-    {% else %}
+      <input type="checkbox" name="allergies" value="peanuts">落花生(ピーナッツ)
+    </label>
     <label class="update_text mt-3">
       <input type="checkbox" name="allergies" value="soba">そば
-    </label>    
-    {% endif %} 
+    </label>
+
   </div>
-  <button type="submit" class="btn btn-outline-danger mt-3" value="編集する">編集する</button>
+  <button type="submit" class="btn btn-outline-danger" value="編集する">編集する</button>
 </form>
 
 {% endblock %}

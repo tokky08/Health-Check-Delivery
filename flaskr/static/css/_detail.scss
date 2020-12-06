@@ -25,3 +25,11 @@ $headlineColor: #33272a;
         text-align: center;
     }
 }
+
+.detail_text{
+    color: $paragraphColor;
+}
+
+.detail_back{
+    background-color: $backgroundColor !important;
+}

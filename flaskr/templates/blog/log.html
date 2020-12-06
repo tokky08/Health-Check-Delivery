@@ -1,14 +1,20 @@
 {% extends "layout.html" %}
+{% block header %}
+<li class="list-group-item log_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
+<li class="list-group-item log_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+<li class="list-group-item log_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+<li class="list-group-item log_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
+{% endblock %}
 {% block content %}
 
-<h3 class="log_titile">注文履歴</h3>
+<h3 class="log_titile text-center log_text mt-3">注文履歴</h3>
 
 {% for log in logs %}
-<p class="log_time mt-5">注文日時：{{log["created"]}}　{{log["eattime"]}}</p>
+<p class="log_time log_text mt-5">注文日時：{{nowtime_list[loop.index-1]}}　{{log["eattime"]}}</p>
 <div id="detail_content" class="card">
   <div class="card-body">
     <div class="detail_img"><img class="img" src="{{url_for('static', filename='img/menu/' + log["img"]) }}" alt=""></div>
-    <h4 class="card-title">{{log["menuname"]}}</h4>
+    <h4 class="card-title log_text mt-3">{{log["menuname"]}}</h4>
     <h6 class="card-subtitle mb-2 text-muted">カロリー：{{log["calorie"]}} kcal</h6>
   </div>
 </div>

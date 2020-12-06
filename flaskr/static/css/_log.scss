@@ -12,3 +12,11 @@ $headlineColor: #33272a;
     width: 90%;
     margin: 0 auto;
 }
+
+.log_text{
+    color: $paragraphColor;
+}
+
+.log_back{
+    background-color: $backgroundColor !important;
+}

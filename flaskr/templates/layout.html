@@ -12,12 +12,28 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body id="body">
-  <header id="header">   
-    <nav class="navbar navbar-dark top_nav">
-      <a class="navbar-brand" href="#!">Health Check Delivery</a>
-      {% block header %}
-      {% endblock %}
-    </nav>
+  <header id="header"> 
+    <nav class="navbar navbar-dark">
+      <a href="#" class="navbar-brand">Health Check Delivery</a>
+      <button class="navbar-toggler ml-auto" type="button"
+          data-toggle="collapse"
+          data-target="#navmenu1"
+          aria-controls="navmenu1"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu1">
+        <div class="navbar-nav">
+          <ul class="navbar-nav ml-auto list-group ">
+              {% block header %}
+              {% endblock %}
+              <li class="list-group-item layout_back"><a href="">Q&A</a></li>
+              <li class="list-group-item layout_back"><a href="">利用規約</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav> 
   </header>
   <main id="main">
     {% block content %}

@@ -1,7 +1,21 @@
 {% extends "layout.html" %}
+{% block header %}
+<li class="list-group-item order_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
+<li class="list-group-item order_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+<li class="list-group-item order_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+<li class="list-group-item order_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
+{% endblock %}
 {% block content %}
 
-<h3 class="text-center">明日の{{eat_time}}を決めてください</h3>
+<div class="order">
+    {% if eat_time=="morning" %}
+        <h3 class="text-center order_text mt-5">明日の朝食を<br>決めてください</h3>
+    {% elif eat_time=="lunch" %}
+        <h3 class="text-center order_text mt-5">明日の昼食を<br>決めてください</h3>
+    {% elif eat_time=="dinner" %}
+        <h3 class="text-center order_text mt-5">明日の夕食を<br>決めてください</h3>
+    {% endif %}
+</div>
 
 {% for menu in menus %}
 <div id="order" class="card mt-3">

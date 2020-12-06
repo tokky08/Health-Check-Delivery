@@ -13,6 +13,12 @@ $headlineColor: #33272a;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    #header{
+        background-color: $headlineColor;
+        // .list_header{
+        //     background-color: $backgroundColor !important;
+        // }
+    }
     #main{
         flex: 1;
     }
@@ -24,5 +30,9 @@ $headlineColor: #33272a;
         width: 100%;
         text-align: center;
     }
+}
+
+.layout_back{
+    background-color: $backgroundColor !important;
 }
 
