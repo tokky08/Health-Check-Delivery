@@ -1,0 +1,13 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+.status_text{
+    color: $paragraphColor;
+}
+
+.status_back{
+    background-color: $backgroundColor !important;
+}

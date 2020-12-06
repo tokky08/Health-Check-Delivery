@@ -1,0 +1,18 @@
+.update_title{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.label{ 
+    display:block;
+    position:relative;
+    padding-left:1em;
+}
+
+.update_text{
+    color: $paragraphColor;
+}
+
+.update_back{
+    background-color: $backgroundColor !important;
+}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block header %}
+<li class="list-group-item status_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
+<li class="list-group-item status_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+<li class="list-group-item status_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+<li class="list-group-item status_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
+{% endblock %}
+{% block content %}
+
+<div class="status">
+  <h1 class="text-center status_text mt-5">配達状況</h1>
+</div>
+
+{% for item in status %}
+{% if time_check_list[loop.index-1]%}
+<p class="log_time status_text mt-5">注文日時：{{nowtime_list[loop.index-1]}}　{{item["eattime"]}}</p>
+<div id="detail_content" class="card">
+  <div class="card-body">
+    <div class="detail_img "><img class="img" src="{{url_for('static', filename='img/menu/' + item["img"]) }}" alt=""></div>
+    <h4 class="card-title status_text mt-3">{{item["menuname"]}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted mt-3">配達予定時間：{{year_f}}/{{month_f}}/{{day_f}} {{item["deliverytime"]}}</h6>
+    <div class="button_content">
+        <a href={{url_for('blog.cancel', user_name=user_name, created=item["created"])}} class="button_link mt-3">
+            <p class="button_text">注文を取り消す</p>
+        </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

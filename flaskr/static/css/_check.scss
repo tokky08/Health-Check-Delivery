@@ -1,0 +1,19 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+#check_content_inner{
+    background-color: $backgroundColor;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.check_text{
+    color: $paragraphColor;
+}
+
+.check_back{
+    background-color: $backgroundColor !important;
+}

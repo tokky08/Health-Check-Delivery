@@ -1,0 +1,35 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+#detail_content{
+    background-color: $backgroundColor;
+    width: 90%;
+    margin: 0 auto;
+    .detail_img{
+        width: 80%;
+        margin: 0 auto;
+        .img{
+             width: 100%;
+        }
+    }
+}
+
+.delivery_time_content{
+    .delivery_time_title{
+        text-align: center;
+    }
+    .delivery_time_form{
+        text-align: center;
+    }
+}
+
+.detail_text{
+    color: $paragraphColor;
+}
+
+.detail_back{
+    background-color: $backgroundColor !important;
+}

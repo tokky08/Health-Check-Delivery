@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <h1 class="text-center title mt-5">Health Check Delivery</h1>
+  <p class="logo">
+      <img class="logo_img" src="{{url_for('static', filename='img/logo/logo2.PNG') }}" alt="">
+  </p>
+
+  <div class="login">
+    <h1 class="text-center login_text mt-5">ログイン</h1>
+  </div>
+
+<!--
+  <form method="post">
+    <p><label for="username">ユーザ名</label></p>
+    <p><input name="username" id="username" required></p>
+    <p><label for="password">パスワード</label></p>
+    <p><input type="password" name="password" id="password" required></p>
+    <p><input type="submit" value="ログイン"></p>
+  </form>
+-->
+
+
+  <form method="post" class="login_form">
+    <div class="form-group login_text mt-3">
+      <label for="username">ユーザ名</label>
+      <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="ユーザ名を入力してください" required>
+    </div>
+    <div class="form-group login_text mt-3">
+      <label for="password">パスワード</label>
+      <input type="password" name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="パスワードを入力してください" required>
+    </div>
+    <button type="submit" class="btn btn-outline-danger mt-3" value="ログイン">ログイン</button>
+  </form>
+
+
+  <div class="button_content mt-5">
+    <a href={{url_for('auth.description')}} class="button_link">
+      <p class="button_text button_size">はじめての方はこちら</p>
+    </a>
+  </div>
+
+  
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block header %}
+<li class="list-group-item blogprofile_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
+<li class="list-group-item blogprofile_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+<li class="list-group-item blogprofile_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+<li class="list-group-item blogprofile_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="img mt-5">
+    <img class="img_size" src="{{url_for('static', filename='img/type/'+ img_type + '_' + img_gender + '.jpg') }}" alt="">
+</div>
+<div class="main-text text-center profile_content blogprofile mt-3">
+    <h1 class="blogprofile_text mt-3">{{ user_name }}さん</h1>
+    <p class="blogprofile_text mt-3">あなたは{{bmi_type}}です<br>{{disc_type}}<p>
+    <div class="button_content blogprofile mt-5">
+        <a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="morning")}} class="button_link">
+            <p class="button_text button_size">明日の朝食を決める</p>
+        </a>
+    </div>
+    <div class="button_content mt-5">
+        <a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="lunch")}} class="button_link">
+            <p class="button_text button_size">明日の昼食を決める</p>
+        </a>
+    </div>
+    <div class="button_content mt-5">
+        <a href={{url_for('blog.menu', user_name=user_name, bmi=bmi, eat_time="dinner")}} class="button_link">
+            <p class="button_text button_size">明日の夕食を決める</p>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,263 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Abel");
+.top_nav {
+  background-color: #33272a; }
+
+#body {
+  background-color: #faeee7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+  #body #header {
+    background-color: #33272a; }
+  #body #main {
+    flex: 1; }
+  #body #footer {
+    margin: 0 auto;
+    padding: 10px 0;
+    background-color: #33272a;
+    color: white;
+    width: 100%;
+    text-align: center; }
+
+.layout_back {
+  background-color: #faeee7 !important; }
+
+.top_nav {
+  background-color: #33272a; }
+
+.logo {
+  width: 40%;
+  margin: 0 auto; }
+  .logo .logo_img {
+    width: 100%; }
+
+.title {
+  color: #594a4e;
+  font-family: 'Chalkboard'; }
+
+.btn_content {
+  width: 90px;
+  margin: 0 auto; }
+  .btn_content .bnt_inner {
+    width: 90px; }
+
+#body {
+  background-color: #faeee7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+  #body #main {
+    flex: 1; }
+  #body #footer {
+    margin: 0 auto;
+    background-color: #33272a;
+    color: white;
+    width: 100%;
+    text-align: center; }
+
+.log_titile {
+  width: 90%;
+  margin: 0 auto; }
+
+.log_time {
+  width: 90%;
+  margin: 0 auto; }
+
+.log_text {
+  color: #594a4e; }
+
+.log_back {
+  background-color: #faeee7 !important; }
+
+.login_text {
+  color: #594a4e; }
+
+.login_form {
+  width: 80%;
+  margin: 0 auto; }
+
+.button_size {
+  font-size: 11px; }
+
+.register_text {
+  color: #594a4e; }
+
+.img {
+  width: 40%;
+  margin: 0 auto; }
+  .img .img_size {
+    width: 100%; }
+
+.profile_content {
+  width: 90%;
+  margin: 0 auto; }
+
+.blogprofile_text {
+  color: #594a4e; }
+
+.button_size {
+  font-size: 13px; }
+
+.blogprofile_back {
+  background-color: #faeee7 !important; }
+
+.profile_text {
+  color: #594a4e; }
+
+#order {
+  background-color: #faeee7;
+  width: 90%;
+  margin: 0 auto; }
+
+.order_content {
+  display: flex; }
+  .order_content .order_img {
+    width: 40%;
+    margin: 0 auto; }
+    .order_content .order_img .img {
+      width: 100%; }
+  .order_content .order_text {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
+.order_text {
+  color: #594a4e;
+  width: 90%;
+  margin: 0 auto; }
+
+.order_back {
+  background-color: #faeee7 !important; }
+
+#detail_content {
+  background-color: #faeee7;
+  width: 90%;
+  margin: 0 auto; }
+  #detail_content .detail_img {
+    width: 80%;
+    margin: 0 auto; }
+    #detail_content .detail_img .img {
+      width: 100%; }
+
+.delivery_time_content .delivery_time_title {
+  text-align: center; }
+.delivery_time_content .delivery_time_form {
+  text-align: center; }
+
+.detail_text {
+  color: #594a4e; }
+
+.detail_back {
+  background-color: #faeee7 !important; }
+
+#check_content_inner {
+  background-color: #faeee7;
+  width: 80%;
+  margin: 0 auto; }
+
+.check_text {
+  color: #594a4e; }
+
+.check_back {
+  background-color: #faeee7 !important; }
+
+.update_title {
+  width: 80%;
+  margin: 0 auto; }
+
+.label {
+  display: block;
+  position: relative;
+  padding-left: 1em; }
+
+.update_text {
+  color: #594a4e; }
+
+.update_back {
+  background-color: #faeee7 !important; }
+
+.button_content {
+  width: 40%;
+  margin: 0 auto;
+  text-decoration: none;
+  border: 1px solid #ff8ba7;
+  border-radius: 3px;
+  transition: 0.3s; }
+  .button_content .button_link {
+    color: #33272a;
+    text-decoration: none;
+    align-items: center; }
+    .button_content .button_link .button_text {
+      margin-bottom: 0;
+      text-align: center;
+      color: #ff8ba7;
+      padding: 10px 0;
+      font-weight: bold; }
+  .button_content .button_link:hover {
+    color: #fff; }
+
+.button_content:hover {
+  background-color: #ff8ba7;
+  border: 1px solid #33272a; }
+  .button_content:hover .button_text {
+    color: #33272a; }
+
+/* モーダルCSS */
+.modalArea {
+  position: fixed;
+  z-index: 10;
+  /*サイトによってここの数値は調整 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.modalBg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 30, 0.9); }
+
+.modalWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-width: 500px;
+  padding: 10px 30px;
+  background-color: #fff; }
+
+.closeModal {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  cursor: pointer; }
+
+/* 以下ボタンスタイル */
+button {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #282828;
+  border-radius: 2px;
+  cursor: pointer; }
+
+#openModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.allergies_text {
+  color: #594a4e;
+  width: 90%;
+  margin: 0 auto; }
+
+.status_text {
+  color: #594a4e; }
+
+.status_back {
+  background-color: #faeee7 !important; }
+
+/*# sourceMappingURL=style.css.map */

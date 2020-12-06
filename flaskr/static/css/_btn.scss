@@ -1,0 +1,39 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+
+.button_content{
+    width: 40%;
+    margin: 0 auto;
+    // padding: 0.4em 1.6em;
+    // font-size: 0.8em;
+    text-decoration: none;
+    border: 1px solid $buttonColor;
+    border-radius: 3px;
+    transition: 0.3s;
+    .button_link {
+        color: $buttontextColor;
+        text-decoration: none;
+        align-items: center;
+        .button_text{
+            margin-bottom: 0;
+            text-align: center;
+            color: $buttonColor;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+    }
+    .button_link:hover{
+        color: #fff;
+    }
+}
+.button_content:hover{
+    background-color: $buttonColor;
+    border: 1px solid $buttontextColor;
+    .button_text{
+        color: $buttontextColor;
+    }
+}

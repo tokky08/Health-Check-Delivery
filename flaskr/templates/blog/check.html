@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block header %}
+<li class="list-group-item check_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
+<li class="list-group-item check_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
+<li class="list-group-item check_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
+<li class="list-group-item check_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
+{% endblock %}
+{% block content %}
+
+<div class="check_content text-center">
+    <h4 class="check_title check_text mt-3">注文確認</h4>
+    <div id="check_content_inner" class="card">
+        <p class="check_name check_text mt-3">料理名：<u>{{menu["menuname"]}}</u></p>
+        <p class="check_time check_text mt-3">配達時間：<u>{{delivery_time}}</u></p>
+    </div>
+    <p class="check_final check_text mt-3">以上でよろしいですか？</p>
+</div>
+<div class="button_content mt-5">
+    <a href="{{url_for('blog.ordered', user_name=user_name, menu_id=menu_id, delivery_time=delivery_time)}}" class="button_link">
+        <p class="button_text">注文する</p>
+    </a>
+</div>
+
+{% endblock %}

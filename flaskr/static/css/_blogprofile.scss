@@ -1,0 +1,31 @@
+$backgroundColor:#faeee7;
+$buttonColor:#ff8ba7;
+$buttontextColor: #33272a;
+$paragraphColor: #594a4e;
+$headlineColor: #33272a;
+
+
+.img{
+    width: 40%;
+    margin: 0 auto;
+    .img_size{
+        width: 100%;
+    }
+}
+
+.profile_content{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.blogprofile_text{
+    color: $paragraphColor;
+}
+
+.button_size{
+    font-size: 13px;
+}
+
+.blogprofile_back{
+    background-color: $backgroundColor !important;
+}
