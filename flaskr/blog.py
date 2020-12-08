@@ -258,11 +258,9 @@ def status(user_name):
 
     for i in status:
         feature_date = i["created"] + datetime.timedelta(days=1)
-        feature_date = db.execute(
-            'SELECT datetime(?, "localtime")',
-            (feature_date,)
-        ).fetchone()
-        feature_date = feature_date[0].split("-")
+        feature_date = feature_date + datetime.timedelta(hours=9)
+        feature_date = feature_date.strftime('%Y-%m-%d %H:%M:%S')
+        feature_date = feature_date.split("-")
         feature_date_2 = feature_date[2].split(" ")
         feature_date_list = []
         feature_date_list.append(feature_date[0])
