@@ -14,7 +14,11 @@
 <body id="body">
   <header id="header"> 
     <nav class="navbar navbar-dark">
-      <a href="#" class="navbar-brand">Health Check Delivery</a>
+      {% if not user_name or user_name == "None" %}
+      <a href={{url_for('blog.index')}} class="navbar-brand">Health Check Delivery</a>
+      {% else %}
+      <a href={{url_for('blog.profile', user_name=user_name)}} class="navbar-brand">Health Check Delivery</a>
+      {% endif %}
       <button class="navbar-toggler ml-auto" type="button"
           data-toggle="collapse"
           data-target="#navmenu1"
@@ -28,8 +32,6 @@
           <ul class="navbar-nav ml-auto list-group ">
               {% block header %}
               {% endblock %}
-              <li class="list-group-item layout_back"><a href="">Q&A</a></li>
-              <li class="list-group-item layout_back"><a href="">利用規約</a></li>
           </ul>
         </div>
       </div>

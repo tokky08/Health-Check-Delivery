@@ -23,6 +23,10 @@
 .layout_back {
   background-color: #faeee7 !important; }
 
+@media (min-width: 768px) {
+  #main {
+    width: 50%;
+    margin: 0 auto; } }
 .top_nav {
   background-color: #33272a; }
 
@@ -32,6 +36,9 @@
   .logo .logo_img {
     width: 100%; }
 
+@media (min-width: 768px) {
+  .logo {
+    margin-top: 50px; } }
 .title {
   color: #594a4e;
   font-family: 'Chalkboard'; }
@@ -41,20 +48,6 @@
   margin: 0 auto; }
   .btn_content .bnt_inner {
     width: 90px; }
-
-#body {
-  background-color: #faeee7;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; }
-  #body #main {
-    flex: 1; }
-  #body #footer {
-    margin: 0 auto;
-    background-color: #33272a;
-    color: white;
-    width: 100%;
-    text-align: center; }
 
 .log_titile {
   width: 90%;
@@ -204,6 +197,9 @@
   .button_content:hover .button_text {
     color: #33272a; }
 
+@media (min-width: 768px) {
+  .button_content {
+    margin-top: 100px; } }
 /* モーダルCSS */
 .modalArea {
   position: fixed;
@@ -254,10 +250,26 @@ button {
   width: 90%;
   margin: 0 auto; }
 
+.description_title {
+  width: 90%;
+  margin: 0 auto; }
+
+.use_video {
+  width: 80%;
+  margin: 0 auto; }
+  .use_video .video {
+    width: 100%; }
+
 .status_text {
   color: #594a4e; }
 
 .status_back {
   background-color: #faeee7 !important; }
+
+.terms {
+  width: 90%;
+  margin: 0 auto; }
+  .terms .terms_p {
+    font-size: 15px; }
 
 /*# sourceMappingURL=style.css.map */
