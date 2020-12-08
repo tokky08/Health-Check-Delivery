@@ -14,6 +14,10 @@ bp = Blueprint('blog', __name__)
 def index():
     return render_template('blog/top.html')
 
+@bp.route('/terms')
+def terms():
+    return render_template('blog/terms.html')
+
 
 @bp.route('/<user_name>/cancel', methods=('GET', 'POST'))
 def cancel(user_name):

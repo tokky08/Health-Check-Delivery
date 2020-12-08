@@ -28,8 +28,8 @@
           <ul class="navbar-nav ml-auto list-group ">
               {% block header %}
               {% endblock %}
-              <li class="list-group-item layout_back"><a href="">Q&A</a></li>
-              <li class="list-group-item layout_back"><a href="">利用規約</a></li>
+              <li class="list-group-item layout_back"><a href={{url_for('blog.index')}}>Q&A</a></li>
+              <li class="list-group-item layout_back"><a href={{url_for('blog.terms')}}>利用規約</a></li>
           </ul>
         </div>
       </div>

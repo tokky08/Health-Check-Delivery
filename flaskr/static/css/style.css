@@ -250,10 +250,26 @@ button {
   width: 90%;
   margin: 0 auto; }
 
+.description_title {
+  width: 90%;
+  margin: 0 auto; }
+
+.use_video {
+  width: 80%;
+  margin: 0 auto; }
+  .use_video .video {
+    width: 100%; }
+
 .status_text {
   color: #594a4e; }
 
 .status_back {
   background-color: #faeee7 !important; }
+
+.terms {
+  width: 90%;
+  margin: 0 auto; }
+  .terms .terms_p {
+    font-size: 15px; }
 
 /*# sourceMappingURL=style.css.map */
