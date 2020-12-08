@@ -14,6 +14,14 @@ bp = Blueprint('blog', __name__)
 def index():
     return render_template('blog/top.html')
 
+@bp.route('/<user_name>/terms')
+def terms(user_name):
+    return render_template('blog/terms.html', user_name=user_name)
+
+@bp.route('/<user_name>/question')
+def question(user_name):
+    return render_template('blog/terms.html', user_name=user_name)
+
 
 @bp.route('/<user_name>/cancel', methods=('GET', 'POST'))
 def cancel(user_name):
@@ -203,11 +211,9 @@ def log(user_name):
 
     nowtime_list = []
     for time in logs:
-        ordered_time = db.execute(
-            'SELECT datetime(?, "localtime")',
-            (time["created"],)
-        ).fetchone()
-        nowtime_list.append(ordered_time[0])
+        ordered_time = time["created"] + datetime.timedelta(hours=9)
+        ordered_time = ordered_time.strftime('%Y-%m-%d %H:%M:%S')
+        nowtime_list.append(ordered_time)
 
     return render_template('blog/log.html', logs=logs, nowtime_list=nowtime_list, user_name=user_name)
 
@@ -220,7 +226,7 @@ def status(user_name):
         'SELECT *'
         ' FROM ordered o JOIN user u ON o.username = u.username'
         ' WHERE o.username = ?'
-        ' ORDER BY created DESC',
+        ' ORDER BY created ASC',
         (user_name,)
     ).fetchall()
 
@@ -254,11 +260,9 @@ def status(user_name):
 
     for i in status:
         feature_date = i["created"] + datetime.timedelta(days=1)
-        feature_date = db.execute(
-            'SELECT datetime(?, "localtime")',
-            (feature_date,)
-        ).fetchone()
-        feature_date = feature_date[0].split("-")
+        feature_date = feature_date + datetime.timedelta(hours=9)
+        feature_date = feature_date.strftime('%Y-%m-%d %H:%M:%S')
+        feature_date = feature_date.split("-")
         feature_date_2 = feature_date[2].split(" ")
         feature_date_list = []
         feature_date_list.append(feature_date[0])

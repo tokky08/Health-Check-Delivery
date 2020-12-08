@@ -37,3 +37,10 @@ $headlineColor: #33272a;
         color: $buttontextColor;
     }
 }
+
+@media(min-width: 768px) {
+    .button_content{
+        // width: 10%;
+        margin-top: 100px;
+    }
+}
