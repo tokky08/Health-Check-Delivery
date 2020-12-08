@@ -207,11 +207,9 @@ def log(user_name):
 
     nowtime_list = []
     for time in logs:
-        ordered_time = db.execute(
-            'SELECT datetime(?, "localtime")',
-            (time["created"],)
-        ).fetchone()
-        nowtime_list.append(ordered_time[0])
+        ordered_time = time["created"] + datetime.timedelta(hours=9)
+        ordered_time = ordered_time.strftime('%Y-%m-%d %H:%M:%S')
+        nowtime_list.append(ordered_time)
 
     return render_template('blog/log.html', logs=logs, nowtime_list=nowtime_list, user_name=user_name)
 
@@ -224,7 +222,7 @@ def status(user_name):
         'SELECT *'
         ' FROM ordered o JOIN user u ON o.username = u.username'
         ' WHERE o.username = ?'
-        ' ORDER BY created DESC',
+        ' ORDER BY created ASC',
         (user_name,)
     ).fetchall()
 
