@@ -20,7 +20,7 @@ def terms(user_name):
 
 @bp.route('/<user_name>/question')
 def question(user_name):
-    return render_template('blog/terms.html', user_name=user_name)
+    return render_template('blog/question.html', user_name=user_name)
 
 
 @bp.route('/<user_name>/cancel', methods=('GET', 'POST'))
