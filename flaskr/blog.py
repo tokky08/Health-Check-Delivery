@@ -232,11 +232,12 @@ def status(user_name):
 
     nowtime_list = []
     for time in status:
-        ordered_time = db.execute(
-            'SELECT datetime(?, "localtime")',
-            (time["created"],)
-        ).fetchone()
-        nowtime_list.append(ordered_time[0])
+        # ordered_time = db.execute(
+        #     'SELECT datetime(?, "localtime")',
+        #     (time["created"],)
+        # ).fetchone()
+        ordered_time = time["created"] + datetime.timedelta(hours=9)
+        nowtime_list.append(ordered_time)
 
     dt_now = datetime.datetime.now()
     dt_now = str(dt_now).split("-")
