@@ -1,13 +1,4 @@
 {% extends "layout.html" %}
-{% block header %}
-<li class="list-group-item log_back"><a href={{url_for('blog.index')}}>ログアウト</a></li>
-<li class="list-group-item log_back"><a href={{url_for('blog.update_1', user_name=user_name)}}>プロフィール編集</a></li>
-<li class="list-group-item log_back"><a href={{url_for('blog.log', user_name=user_name)}}>注文履歴</a></li>
-<li class="list-group-item log_back"><a href={{url_for('blog.status', user_name=user_name)}}>配達状況</a></li>
-<li class="list-group-item layout_back"><a href={{url_for('blog.index')}}>Q&A</a></li>
-<li class="list-group-item layout_back"><a href={{url_for('blog.terms', user_name=user_name)}}>利用規約</a></li>
-{% endblock %}
-
 {% block content %}
 <div class="terms">
     <h1 class="terms_title mt-5">Q&A</h1>
