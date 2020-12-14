@@ -16,12 +16,12 @@
     <input name="mail" type="text" class="form-control" id="formGroupExampleInput2" value="{{ request.form['height'] or user['height'] }}">
   </div>
   <div class="form-group update_text mt-3">
-    <label for="weight">体重（kg）</label>
-    <input name="weight" class="form-control" id="formGroupExampleInput" value="{{ request.form['weight'] or user['weight'] }}" required>
-  </div>
-  <div class="form-group update_text mt-3">
     <label for="height">身長（cm）</label>
     <input name="height" class="form-control" id="formGroupExampleInput2" value="{{ request.form['height'] or user['height'] }}" required>
+  </div>
+  <div class="form-group update_text mt-3">
+    <label for="weight">体重（kg）</label>
+    <input name="weight" class="form-control" id="formGroupExampleInput" value="{{ request.form['weight'] or user['weight'] }}" required>
   </div>
   {% if request.form['gender'] == "male" or user['gender'] == "male" %}
   <div class="custom-control custom-radio">
